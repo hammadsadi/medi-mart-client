@@ -19,7 +19,7 @@ export default function Navbar() {
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
         <h1 className="text-2xl font-black flex items-center">
           <Logo />
-          Next Mart
+          Medi Mart
         </h1>
         <div className="max-w-md  flex-grow">
           <nav>
@@ -53,7 +53,7 @@ export default function Navbar() {
             className="rounded-full p-0 size-10 relative"
           >
             <div className="absolute -top-1 -right-1 bg-primary text-white w-5 h-5 flex items-center justify-center text-xs font-bold rounded-full shadow-md">
-              1
+              0
             </div>
             <ShoppingBag />
           </Button>
@@ -71,7 +71,9 @@ export default function Navbar() {
               <DropdownMenuItem>Orders</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem><LogOut/> Logout</DropdownMenuItem>
+              <DropdownMenuItem>
+                <LogOut /> Logout
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
