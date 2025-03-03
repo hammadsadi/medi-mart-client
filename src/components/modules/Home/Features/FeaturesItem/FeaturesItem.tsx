@@ -1,6 +1,6 @@
-import { ExternalLink, Link2, LinkIcon } from 'lucide-react';
-import Link from 'next/link';
-import React from 'react'
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
+import React from "react";
 
 const FeaturesItem = () => {
   return (
@@ -62,14 +62,16 @@ const FeaturesItem = () => {
       </div>
 
       <div className="flex justify-end">
-        <Link href='' className="-me-[2px] -mb-[2px] inline-flex items-center gap-1 rounded-ss-xl rounded-ee-xl bg-primary px-3 py-1.5 text-white">
-       
-          <ExternalLink className='size-3' />
+        <Link
+          href=""
+          className="-me-[2px] -mb-[2px] inline-flex items-center gap-1 rounded-ss-xl rounded-ee-xl bg-primary px-3 py-1.5 text-white"
+        >
+          <ExternalLink className="size-3" />
           <span className="text-[10px] font-medium sm:text-xs">Details</span>
         </Link>
       </div>
     </article>
   );
-}
+};
 
 export default FeaturesItem;
