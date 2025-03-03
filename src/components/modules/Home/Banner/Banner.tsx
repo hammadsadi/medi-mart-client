@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import React from "react";
 
 const Banner = () => {
@@ -7,7 +6,7 @@ const Banner = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 to-gray-900/20"></div>
 
       <div className="relative mx-auto max-w-screen-xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
-        <div className="max-w-xl text-center sm:text-left">
+        <div className="max-w-xl text-center mx-auto">
           <h1 className="text-3xl font-extrabold text-white sm:text-5xl">
             Your Health our Priority
             <strong className="block font-extrabold text-primary">
@@ -16,14 +15,52 @@ const Banner = () => {
           </h1>
 
           <p className="mt-4 max-w-lg text-white sm:text-xl/relaxed">
-            We provide reliable and fast delivery of prescription and over the
-            counter medications to ensure your health and wellness
+            Get medicines at your home within 30 minutes.
           </p>
+          <div>
+            <div className="relative mt-4">
+              <label htmlFor="Search" className="sr-only">
+                {" "}
+                Search{" "}
+              </label>
 
-          <div className="mt-8 flex flex-wrap gap-4 text-center">
+              <input
+                type="text"
+                id="Search"
+                placeholder="Search for..."
+                className="w-full rounded-md border-gray-200 focus:outline-none  py-2.5 pe-10 pl-2 shadow-xs sm:text-sm"
+              />
+
+              <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
+                <button
+                  type="button"
+                  className="text-gray-600 hover:text-gray-700"
+                >
+                  <span className="sr-only">Search</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </div>
+          </div>
+
+          {/* <div className="mt-8 flex flex-wrap gap-4 text-center">
             <Button> Shop Now</Button>
             <Button variant="secondary"> Learn More</Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
