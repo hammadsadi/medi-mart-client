@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import React from 'react'
+import React from "react";
+import ProfileUpdateModal from "./ProfileUpdateModal";
 
 const ManageProfile = () => {
   return (
@@ -23,9 +23,10 @@ const ManageProfile = () => {
           <h2 className="font-semibold">Sarah Smith</h2>
           <p className="text-gray-500">Coustomer</p>
         </div>
-        <div className="text-center mt-1">
+        {/* <div className="text-center mt-1">
           <Button size="sm">Edit Profile</Button>
-        </div>
+        </div> */}
+        <ProfileUpdateModal />
         <ul className="py-4 mt-2 text-gray-700 flex items-center justify-around">
           <li className="flex flex-col items-center justify-around">
             <svg
@@ -91,6 +92,6 @@ const ManageProfile = () => {
       </div>
     </>
   );
-}
+};
 
-export default ManageProfile
+export default ManageProfile;
