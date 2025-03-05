@@ -50,7 +50,7 @@ export const userLogin = async (userInfo: FieldValues) => {
 
 // Get Current Logedin User From Cookie
 export const getCurrentUser = async () => {
-  const accesstoken = (await cookies()).get("accessToken")?.value;
+  const accesstoken = (await cookies()).get("medi_mart_tk")?.value;
   let decodeData = null;
   if (accesstoken) {
     decodeData = await jwtDecode(accesstoken);
@@ -60,42 +60,19 @@ export const getCurrentUser = async () => {
   }
 };
 
-// Google Recaptcha
-export const googleRecaptchaVerify = async (token: string) => {
-  try {
-    const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        secret: process.env.NEXT_PUBLIC_RECAPCHA_SERVER_KEY!,
-        response: token,
-      }),
-    });
-    return res.json();
-  } catch (error: any) {
-    throw Error(error);
-  }
-};
-
 export const logOutUser = async () => {
-  (await cookies()).delete("accessToken");
+  (await cookies()).delete("medi_mart_tk");
 };
 
-// Get Refresh Token
-export const getRefreshToken = async () => {
+// Get LoggedIn User Info
+export const getLoggedInUserInfo = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh-token`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: (await cookies()).get("refreshToken")?.value as string,
-        },
-      }
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/me`, {
+      method: "GET",
+      headers: {
+        Authorization: (await cookies()).get("medi_mart_tk")?.value as string,
+      },
+    });
 
     return res.json();
   } catch (error: any) {

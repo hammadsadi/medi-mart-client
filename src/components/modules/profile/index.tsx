@@ -1,27 +1,36 @@
 import React from "react";
 import ProfileUpdateModal from "./ProfileUpdateModal";
+import { TLoggedInUser } from "@/types/user.types";
+import Image from "next/image";
 
-const ManageProfile = () => {
+const ManageProfile = ({ userInfo }: { userInfo: TLoggedInUser }) => {
   return (
     <>
       <div className="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-2xl xl:max-w-2xl sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900">
         <div className="rounded-t-lg h-32 overflow-hidden">
-          <img
-            className="object-cover object-top w-full"
+          <Image
             src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-            alt="Mountain"
+            width={200}
+            height={200}
+            className="object-cover object-top w-full"
+            alt="Cover Photo"
           />
         </div>
         <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
-          <img
-            className="object-cover object-center h-32"
-            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"
-            alt="Woman looking front"
+          <Image
+            width={200}
+            height={200}
+            className="object-cover object-center w-32 h-32"
+            alt={userInfo?.name}
+            src={
+              userInfo?.image ||
+              "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png"
+            }
           />
         </div>
         <div className="text-center mt-2">
-          <h2 className="font-semibold">Sarah Smith</h2>
-          <p className="text-gray-500">Coustomer</p>
+          <h2 className="font-semibold">{userInfo?.name}</h2>
+          <p className="text-gray-500">{userInfo?.role}</p>
         </div>
         {/* <div className="text-center mt-1">
           <Button size="sm">Edit Profile</Button>
@@ -64,27 +73,37 @@ const ManageProfile = () => {
             <dl className="-my-3 divide-y divide-gray-100 text-sm">
               <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
                 <dt className="font-medium text-gray-900">Email</dt>
-                <dd className="text-gray-700 sm:col-span-2">Mr</dd>
+                <dd className="text-gray-700 sm:col-span-2">
+                  {userInfo?.email}
+                </dd>
               </div>
 
               <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
                 <dt className="font-medium text-gray-900">Phone</dt>
-                <dd className="text-gray-700 sm:col-span-2">John Frusciante</dd>
+                <dd className="text-gray-700 sm:col-span-2">
+                  {userInfo?.phone}
+                </dd>
               </div>
 
               <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
                 <dt className="font-medium text-gray-900">City</dt>
-                <dd className="text-gray-700 sm:col-span-2">Guitarist</dd>
+                <dd className="text-gray-700 sm:col-span-2">
+                  {userInfo?.city || "Not Set"}
+                </dd>
               </div>
 
               <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
                 <dt className="font-medium text-gray-900">Home Town / State</dt>
-                <dd className="text-gray-700 sm:col-span-2">$1,000,000+</dd>
+                <dd className="text-gray-700 sm:col-span-2">
+                  {userInfo?.address || "Not Set"}
+                </dd>
               </div>
 
               <div className="grid grid-cols-1 gap-1 p-3 sm:grid-cols-3 sm:gap-4">
                 <dt className="font-medium text-gray-900">Account Status</dt>
-                <dd className="text-gray-700 sm:col-span-2">Active</dd>
+                <dd className="text-gray-700 sm:col-span-2 capitalize">
+                  {userInfo?.status}
+                </dd>
               </div>
             </dl>
           </div>

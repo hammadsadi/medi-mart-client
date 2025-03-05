@@ -2,13 +2,13 @@
 const uploadImage = async (image: any) => {
   const data = new FormData();
   data.append("file", image);
-  data.append("upload_preset", "portflo");
-  data.append("cloud_name", "da02dbjrc");
+  data.append("upload_preset", `${process.env.NEXT_PUBLIC_UPLOAD_PRESET}`);
+  data.append("cloud_name", `${process.env.NEXT_PUBLIC_CLOUD_NAME}`);
   // data.append("folder", "Cloudinary-React");
 
   try {
     const response = await fetch(
-      `https://api.cloudinary.com/v1_1/da02dbjrc/image/upload`,
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
       {
         method: "POST",
         body: data,

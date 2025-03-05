@@ -18,14 +18,16 @@ import { loginValidationSchema } from "./loginValidationSchema";
 import { userLogin } from "@/services/AuthServices";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 
 const LoginForm = () => {
-   const searchParams = useSearchParams();
-   const redirect = searchParams.get("redirectPath");
-     const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
+  const { setIsLoading } = useUser();
+  const router = useRouter();
 
   const form = useForm({
-    resolver:zodResolver(loginValidationSchema)
+    resolver: zodResolver(loginValidationSchema),
   });
   const {
     formState: { isSubmitting },
@@ -33,11 +35,11 @@ const LoginForm = () => {
 
   // Register Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data)
+    console.log(data);
     try {
       // Form Data Send to Server action
       const res = await userLogin(data);
-      // setIsLoading(true);
+      setIsLoading(true);
       // Toast Handle
       if (res?.success) {
         toast.success(res?.message);
@@ -53,19 +55,6 @@ const LoginForm = () => {
       console.error(error);
     }
   };
-
-  // Handle RecapCha
-  // const handleRecapCha = async (value: string | null) => {
-  //   try {
-  //     const res = await googleRecaptchaVerify(value!);
-  //     console.log(res);
-  //     if (res?.success) {
-  //       setReCaptchaStatus(true);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center">

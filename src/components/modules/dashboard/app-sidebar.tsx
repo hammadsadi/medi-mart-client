@@ -60,8 +60,18 @@ const data = {
         },
       ],
     },
+    {
+      title: "Manage Coupons",
+      url: "/admin/coupon",
+      icon: BookOpen,
+      items: [
+        {
+          title: "Coupons",
+          url: "/admin/coupon",
+        },
+      ],
+    },
   ],
-
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

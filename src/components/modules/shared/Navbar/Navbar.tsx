@@ -1,4 +1,5 @@
-import {  LogOut, ShoppingBag } from "lucide-react";
+"use client";
+import { LogOut, ShoppingBag } from "lucide-react";
 import Logo from "../Logo/Logo";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -12,8 +13,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { useUser } from "@/context/UserContext";
+import { logOutUser } from "@/services/AuthServices";
 export default function Navbar() {
+  const { user, setIsLoading } = useUser();
+
+  // Handle Logout
+  const handleLogout = async () => {
+    await logOutUser();
+    setIsLoading(true);
+  };
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
@@ -57,25 +66,51 @@ export default function Navbar() {
             </div>
             <ShoppingBag />
           </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Orders</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <LogOut /> Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage
+                    src={`${
+                      user?.image ||
+                      "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png"
+                    }`}
+                  />
+                  <AvatarFallback className="uppercase">
+                    {user?.name?.slice(0, 2)}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Link href="/profile">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/carts">Carts</Link>
+                </DropdownMenuItem>
+                {user.role === "Admin" && (
+                  <DropdownMenuItem>
+                    <Link href="/admin">Dashboard</Link>
+                  </DropdownMenuItem>
+                )}
+
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  <LogOut /> Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link href="/login">
+              <Button>Login</Button>
+            </Link>
+          )}
         </div>
       </div>
     </header>

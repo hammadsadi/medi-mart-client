@@ -1,12 +1,14 @@
 import ManageProfile from '@/components/modules/profile'
-import React from 'react'
+import { getLoggedInUserInfo } from "@/services/AuthServices";
+import React from "react";
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+  const { data: loggedInUserData } = await getLoggedInUserInfo();
   return (
     <div>
-      <ManageProfile/>
+      <ManageProfile userInfo={loggedInUserData} />
     </div>
-  )
-}
+  );
+};
 
 export default ProfilePage
