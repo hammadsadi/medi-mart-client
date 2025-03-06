@@ -1,10 +1,20 @@
+"use client";
+import { Button } from "@/components/ui/button";
 import { currencyFormatter } from "@/lib/currencyFormatter";
+import { addToCart } from "@/redux/features/cart/cartSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { TMedicine } from "@/types/medicines.types";
 import { FileText, MoveRight, Stethoscope } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 const ShopItem = ({ medicine }: { medicine: TMedicine }) => {
+  const dispatch = useAppDispatch();
+
+  // Handle Add to cart
+  const handleAddToCart = (medicineData: TMedicine) => {
+    dispatch(addToCart(medicineData));
+  };
   return (
     <div className="block rounded-lg p-4 bg-slate-50 shadow-xs shadow-indigo-100">
       <Image
@@ -31,7 +41,7 @@ const ShopItem = ({ medicine }: { medicine: TMedicine }) => {
           </div>
         </dl>
 
-        <div className="mt-6 flex items-center gap-5 text-xs">
+        <div className="mt-6 flex items-center gap-3 text-xs">
           <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
             <Stethoscope className="size-5 text-primary" />
 
@@ -63,6 +73,15 @@ const ShopItem = ({ medicine }: { medicine: TMedicine }) => {
             </div>
             <MoveRight className="size-5" />
           </Link>
+        </div>
+        <div className="mt-3">
+          <Button
+            onClick={() => handleAddToCart(medicine)}
+            size="sm"
+            className="w-full"
+          >
+            Add To cart
+          </Button>
         </div>
       </div>
     </div>

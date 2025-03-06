@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { MedicineDetailsTabs } from "./details/medicineDetailsTabs/MedicineDetailsTabs";
 import { TMedicine } from "@/types/medicines.types";
 import { currencyFormatter } from "@/lib/currencyFormatter";
+import DetailsAction from "./detailsAction/DetailsAction";
 
 const MedicineDetails = ({ medicineInfo }: { medicineInfo: TMedicine }) => {
   return (
@@ -41,10 +41,11 @@ const MedicineDetails = ({ medicineInfo }: { medicineInfo: TMedicine }) => {
           </div>
           <hr />
 
-          <Button variant="outline" className="w-full my-5">
+          {/* <Button variant="outline" className="w-full my-5">
             Add To Cart
           </Button>
-          <Button className="w-full">Buy Now</Button>
+          <Button className="w-full">Buy Now</Button> */}
+          <DetailsAction medicineData={medicineInfo} />
         </div>
       </div>
       <div>

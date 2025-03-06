@@ -17,10 +17,13 @@ import { useUser } from "@/context/UserContext";
 import { logOutUser } from "@/services/AuthServices";
 import { usePathname, useRouter } from "next/navigation";
 import { protectedRoutes } from "@/constants";
+import { useAppSelector } from "@/redux/hooks";
+import { cartMedicineSelector } from "@/redux/features/cart/cartSlice";
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
   const pathname = usePathname();
   const router = useRouter();
+  const medicinesAll = useAppSelector(cartMedicineSelector);
 
   // Handle Logout
   const handleLogout = async () => {
@@ -67,15 +70,17 @@ export default function Navbar() {
           </nav>
         </div>
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className="rounded-full p-0 size-10 relative"
-          >
-            <div className="absolute -top-1 -right-1 bg-primary text-white w-5 h-5 flex items-center justify-center text-xs font-bold rounded-full shadow-md">
-              0
-            </div>
-            <ShoppingBag />
-          </Button>
+          <Link href="/cart">
+            <Button
+              variant="outline"
+              className="rounded-full p-0 size-10 relative"
+            >
+              <div className="absolute -top-1 -right-1 bg-primary text-white w-5 h-5 flex items-center justify-center text-xs font-bold rounded-full shadow-md">
+                {medicinesAll?.length}
+              </div>
+              <ShoppingBag />
+            </Button>
+          </Link>
 
           {user ? (
             <DropdownMenu>
