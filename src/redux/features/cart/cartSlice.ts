@@ -84,6 +84,16 @@ const cartSlice = createSlice({
     updatePrescriptionUrl: (state, action) => {
       state.prescriptionUrl = action.payload;
     },
+
+    // Clear Cart
+    cartClear: (state) => {
+      state.medicines = [];
+      state.isPrescriptionRequired = false;
+      state.deliveryOption = "";
+      state.deliveryArea = "";
+      state.deliveryDetailsAddress = "";
+      state.prescriptionUrl = null;
+    },
   },
 });
 
@@ -188,6 +198,7 @@ export const {
   updateDeliveryDetailsAddress,
   updateDeliveryOption,
   updatePrescriptionUrl,
+  cartClear,
 } = cartSlice.actions;
 
 // Export Reducer

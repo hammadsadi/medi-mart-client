@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/UserContext";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 import {
+  cartClear,
   cartMedicineSelector,
   deliveryAddressDetailsSelector,
   deliveryAreaSelector,
@@ -16,7 +17,8 @@ import {
   shippingCostSelector,
   subTotalSelector,
 } from "@/redux/features/cart/cartSlice";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { createOrder } from "@/services/OrderServices";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 export default function PaymentDetails() {
@@ -31,13 +33,14 @@ export default function PaymentDetails() {
   const isPrescritionRequired = useAppSelector(isPrescritionRequiredSelector);
   const prescritionRequiredUrl = useAppSelector(prescriptionUrlSelector);
   const carMedicines = useAppSelector(cartMedicineSelector);
+  const dispatch = useAppDispatch();
   const { user } = useUser();
   const router = useRouter();
   const pathname = usePathname();
   // Handle Order Now
   const handleOrderNow = async () => {
     console.log(user);
-    const orderLoading = toast.loading("create order loading");
+    const orderLoading = toast.loading("Order is being placed...");
     try {
       if (!user) {
         router.push(`/login?redirectPath=${pathname}`);
@@ -59,8 +62,15 @@ export default function PaymentDetails() {
         throw new Error("Prescription is Missing!");
       }
 
-      toast.success("Order is being placed...", { id: orderLoading });
-      console.log(oroderInfo);
+      const res = await createOrder(oroderInfo);
+      if (res?.success) {
+        toast.success(res?.message, { id: orderLoading });
+        dispatch(cartClear());
+        router.push(res?.data);
+      }
+      if (!res?.success) {
+        toast.error(res?.message, { id: orderLoading });
+      }
     } catch (error: any) {
       toast.error(error?.message, { id: orderLoading });
     }
