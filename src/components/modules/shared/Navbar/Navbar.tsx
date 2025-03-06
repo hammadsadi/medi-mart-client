@@ -39,8 +39,11 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link href="/" className="transition-all hover:text-primary">
-                  About
+                <Link
+                  href="/shop"
+                  className="transition-all hover:text-primary"
+                >
+                  Shop
                 </Link>
               </li>
               <li>

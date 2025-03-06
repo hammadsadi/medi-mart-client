@@ -2,8 +2,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DetailsInfo from "../detailsInfo/DetailsInfo";
 import Reviews from "../../Reviews/Reviews";
+import { TMedicine } from "@/types/medicines.types";
 
-export function MedicineDetailsTabs() {
+export function MedicineDetailsTabs({
+  medicineInfo,
+}: {
+  medicineInfo: TMedicine;
+}) {
   return (
     <div className="mt-10">
       <Tabs defaultValue="details">
@@ -15,11 +20,11 @@ export function MedicineDetailsTabs() {
         </div>
         {/* One Tabe */}
         <TabsContent value="details">
-          <DetailsInfo />
+          <DetailsInfo medicineInfo={medicineInfo} />
         </TabsContent>
         {/* Two Tabe */}
         <TabsContent value="reviews">
-          <Reviews/>
+          <Reviews />
         </TabsContent>
       </Tabs>
     </div>

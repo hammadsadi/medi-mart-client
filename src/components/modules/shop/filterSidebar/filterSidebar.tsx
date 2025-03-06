@@ -50,7 +50,7 @@ export default function FilterSidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-fit bg-white shadow-lg p-6 w-72 transition-transform duration-300 z-50 
+        className={`fixed top-0 left-0 h-fit bg-slate-50  p-6 w-72 transition-transform duration-300 z-50 
         ${isOpen ? "translate-x-0" : "-translate-x-full"} 
         lg:translate-x-0 lg:relative lg:w-60 lg:h-fit lg:block`}
       >
