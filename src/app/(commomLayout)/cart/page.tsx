@@ -1,11 +1,20 @@
-import CartProducts from '@/components/modules/cart/CartProducts';
-import CommonBanner from '@/components/modules/shared/CommonBanner/CommonBanner';
-import MyContainer from '@/components/modules/shared/MyContainer/MyContainer';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import React from 'react'
+"use client";
+import CartProducts from "@/components/modules/cart/CartProducts";
+import CommonBanner from "@/components/modules/shared/CommonBanner/CommonBanner";
+import MyContainer from "@/components/modules/shared/MyContainer/MyContainer";
+import { Button } from "@/components/ui/button";
+import { cartMedicineSelector } from "@/redux/features/cart/cartSlice";
+import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 const CartPage = () => {
+  const router = useRouter();
+  const medicineData = useAppSelector(cartMedicineSelector);
+  // Handle Procced
+  const handleProcced = () => {
+    router.push("/checkout");
+  };
   return (
     <div>
       <div>
@@ -17,15 +26,18 @@ const CartPage = () => {
           <div className=" max-w-4xl mx-auto">
             <CartProducts />
             <div className="text-right mt-2">
-              <Link href="/checkout">
-                <Button>Proceed to Checkout</Button>
-              </Link>
+              <Button
+                onClick={handleProcced}
+                disabled={medicineData?.length === 0}
+              >
+                Proceed to Checkout
+              </Button>
             </div>
           </div>
         </MyContainer>
       </div>
     </div>
   );
-}
+};
 
-export default CartPage
+export default CartPage;
