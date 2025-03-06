@@ -15,13 +15,20 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/context/UserContext";
 import { logOutUser } from "@/services/AuthServices";
+import { usePathname, useRouter } from "next/navigation";
+import { protectedRoutes } from "@/constants";
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
+  const pathname = usePathname();
+  const router = useRouter();
 
   // Handle Logout
   const handleLogout = async () => {
     await logOutUser();
     setIsLoading(true);
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
+    }
   };
   return (
     <header className="border-b w-full">
