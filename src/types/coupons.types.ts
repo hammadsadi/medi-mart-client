@@ -12,3 +12,8 @@ export type TCoupon = {
   updatedAt: string; 
   __v: number;
 };
+
+export type TDiscountData = {
+  coupon: string;
+  totalPrice: number;
+};

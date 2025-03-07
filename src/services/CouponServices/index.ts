@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
+import { TDiscountData } from "@/types/coupons.types";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -24,6 +25,27 @@ export const createCoupon = async (data: any) => {
     return Error(error);
   }
 };
+
+// Get Discount
+export const getDiscountInfo = async (couponInfo: TDiscountData) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/order/discount`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: (await cookies()).get("medi_mart_tk")?.value as string,
+        },
+        body: JSON.stringify(couponInfo),
+      }
+    );
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
 
 // Get All Coupons
 export const getAllCoupons = async () => {

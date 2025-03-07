@@ -4,9 +4,9 @@ import Coupon from './coupon/Coupon'
 const CheckoutManage = () => {
   return (
     <div>
-      <Coupon/>
+      <Coupon />
     </div>
-  )
-}
+  );
+};
 
 export default CheckoutManage

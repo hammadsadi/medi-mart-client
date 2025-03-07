@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RootState } from "@/redux/store";
+import { getDiscountInfo } from "@/services/CouponServices";
+import { TDiscountData } from "@/types/coupons.types";
 import { TMedicine } from "@/types/medicines.types";
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export interface ICartMedicine extends TMedicine {
   orderQuantity: number;
@@ -12,6 +15,13 @@ interface IInitialState {
   deliveryArea: string;
   deliveryDetailsAddress: string;
   prescriptionUrl: string | null;
+  coupon: {
+    code: string;
+    discount: number;
+    finalPrice: number;
+    isLoading: boolean;
+    error: string;
+  };
 }
 const initialState: IInitialState = {
   medicines: [],
@@ -20,7 +30,32 @@ const initialState: IInitialState = {
   deliveryArea: "",
   deliveryDetailsAddress: "",
   prescriptionUrl: null,
+  coupon: {
+    code: "",
+    discount: 0,
+    finalPrice: 0,
+    isLoading: false,
+    error: "",
+  },
 };
+
+// Create Async Thunk
+export const fetchCoupon = createAsyncThunk(
+  "cart/fetchCoupon",
+  async (couponInfo: TDiscountData) => {
+    try {
+      const res = await getDiscountInfo(couponInfo);
+      // Check Error
+      if (!res?.success) {
+        throw new Error(res?.message);
+      }
+      return res;
+    } catch (error: any) {
+      throw new Error(error?.message);
+    }
+  }
+);
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -67,6 +102,12 @@ const cartSlice = createSlice({
       state.medicines = state.medicines.filter(
         (medicine) => medicine?._id !== action.payload
       );
+      const isCheckPrescriptionMedicine = state.medicines?.find(
+        (mdc) => mdc.prescriptionRequired === true
+      );
+      if (!isCheckPrescriptionMedicine) {
+        state.isPrescriptionRequired = false;
+      }
     },
     // Update Delivery Option
     updateDeliveryOption: (state, action) => {
@@ -95,6 +136,26 @@ const cartSlice = createSlice({
       state.prescriptionUrl = null;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCoupon.pending, (state) => {
+      state.coupon.error = "";
+      state.coupon.isLoading = true;
+    });
+    builder.addCase(fetchCoupon.rejected, (state, action) => {
+      state.coupon.error = action.error.message as string;
+      state.coupon.isLoading = false;
+      state.coupon.discount = 0;
+      state.coupon.finalPrice = 0;
+      state.coupon.code = "";
+    });
+    builder.addCase(fetchCoupon.fulfilled, (state, action) => {
+      state.coupon.error = "";
+      state.coupon.isLoading = false;
+      state.coupon.discount = action?.payload?.data?.discount;
+      state.coupon.finalPrice = action?.payload?.data?.finalPrice;
+      state.coupon.code = action?.payload?.data?.code;
+    });
+  },
 });
 
 // Selectors Functions Here
@@ -107,6 +168,12 @@ export const subTotalSelector = (state: RootState) => {
   }, 0);
 };
 
+export const discountAmountSelector = (state: RootState) => {
+  return state.cart.coupon.discount;
+};
+export const couponDetailsSelector = (state: RootState) => {
+  return state.cart.coupon;
+};
 export const deliveryOptionSelector = (state: RootState) => {
   return state.cart.deliveryOption;
 };
@@ -131,7 +198,6 @@ export const orderSelector = (state: RootState) => {
       quantity: medicine?.orderQuantity,
       prescriptionUrl: medicine?.prescriptionRequired ? prescriptionUrl : null,
     })),
-    // user: "65f1234567890abcdef12345",
     deliveryOption: state.cart.deliveryOption,
     deliveryArea: state.cart.deliveryArea,
     deliveryDetailsAddress: state.cart.deliveryDetailsAddress,
@@ -142,8 +208,9 @@ export const orderSelector = (state: RootState) => {
 export const grandTotalSelector = (state: RootState) => {
   const subTotal = subTotalSelector(state);
   const shipmentCost = shippingCostSelector(state);
+  const discountAmount = discountAmountSelector(state);
   const shipmentTotalAmount = shipmentCost || 0;
-  return subTotal + shipmentTotalAmount;
+  return subTotal - discountAmount + shipmentTotalAmount;
 };
 
 // Shiping Cost Selector

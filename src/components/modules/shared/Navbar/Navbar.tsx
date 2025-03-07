@@ -100,12 +100,17 @@ export default function Navbar() {
               <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link href="/profile">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/carts">Carts</Link>
-                </DropdownMenuItem>
+                {user.role === "Customer" && (
+                  <>
+                    <DropdownMenuItem>
+                      <Link href="/profile">Profile</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/orders">Orders History</Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
+
                 {user.role === "Admin" && (
                   <DropdownMenuItem>
                     <Link href="/admin">Dashboard</Link>

@@ -1,16 +1,24 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Trash } from "lucide-react";
+import { LoaderCircle, Trash } from "lucide-react";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+  couponDetailsSelector,
+  fetchCoupon,
+  subTotalSelector,
+} from "@/redux/features/cart/cartSlice";
+import { toast } from "sonner";
 
 export default function Coupon() {
-
   const form = useForm();
-
+  const subtotal = useAppSelector(subTotalSelector);
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector(couponDetailsSelector);
   const couponInput = form.watch("coupon");
 
   const handleRemoveCoupon = () => {
@@ -18,7 +26,15 @@ export default function Coupon() {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-  console.log(data)
+    try {
+      const modifieCoupondData: any = {
+        coupon: data?.coupon,
+        totalPrice: subtotal,
+      };
+      await dispatch(fetchCoupon(modifieCoupondData) as any).unwrap();
+    } catch (error: any) {
+      toast.error(error?.message);
+    }
   };
 
   return (
@@ -39,7 +55,7 @@ export default function Coupon() {
                       {...field}
                       className="rounded-full"
                       placeholder="Promo / Coupon code"
-                      value={field.value || 'code'}
+                      value={field.value || ""}
                     />
                   </FormControl>
                 </FormItem>
@@ -51,7 +67,11 @@ export default function Coupon() {
                 type="submit"
                 className="w-full text-xl font-semibold py-5 "
               >
-                Apply
+                {isLoading ? (
+                  <LoaderCircle className="animate-spin" />
+                ) : (
+                  "Apply"
+                )}
               </Button>
               {couponInput && (
                 <Button

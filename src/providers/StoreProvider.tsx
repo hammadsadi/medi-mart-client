@@ -15,7 +15,10 @@ const StoreProvider = ({ children }: { children: ReactNode }) => {
   const persistedStore = persistStore(storeRef.current);
   return (
     <Provider store={storeRef.current}>
-      <PersistGate loading={<MMLoader />} persistor={persistedStore}>
+      {/* <PersistGate loading={<MMLoader />} persistor={persistedStore}>
+        {children}
+      </PersistGate> */}
+      <PersistGate loading={null} persistor={persistedStore}>
         {children}
       </PersistGate>
     </Provider>

@@ -7,9 +7,11 @@ import { currencyFormatter } from "@/lib/currencyFormatter";
 import {
   cartClear,
   cartMedicineSelector,
+  couponDetailsSelector,
   deliveryAddressDetailsSelector,
   deliveryAreaSelector,
   deliveryOptionSelector,
+  discountAmountSelector,
   grandTotalSelector,
   isPrescritionRequiredSelector,
   orderSelector,
@@ -33,13 +35,14 @@ export default function PaymentDetails() {
   const isPrescritionRequired = useAppSelector(isPrescritionRequiredSelector);
   const prescritionRequiredUrl = useAppSelector(prescriptionUrlSelector);
   const carMedicines = useAppSelector(cartMedicineSelector);
+  const discountAmount = useAppSelector(discountAmountSelector);
+  const coupons = useAppSelector(couponDetailsSelector);
   const dispatch = useAppDispatch();
   const { user } = useUser();
   const router = useRouter();
   const pathname = usePathname();
   // Handle Order Now
   const handleOrderNow = async () => {
-    console.log(user);
     const orderLoading = toast.loading("Order is being placed...");
     try {
       if (!user) {
@@ -62,7 +65,13 @@ export default function PaymentDetails() {
         throw new Error("Prescription is Missing!");
       }
 
-      const res = await createOrder(oroderInfo);
+      let orderData;
+      if (coupons?.code) {
+        orderData = { ...oroderInfo, coupon: coupons?.code };
+      } else {
+        orderData = oroderInfo;
+      }
+      const res = await createOrder(orderData);
       if (res?.success) {
         toast.success(res?.message, { id: orderLoading });
         dispatch(cartClear());
@@ -85,7 +94,7 @@ export default function PaymentDetails() {
         </div>
         <div className="flex justify-between">
           <p className="text-gray-500 ">Discount</p>
-          <p className="font-semibold">{currencyFormatter(45)}</p>
+          <p className="font-semibold">{currencyFormatter(discountAmount)}</p>
         </div>
         <div className="flex justify-between">
           <p className="text-gray-500 ">Shipment Cost</p>
