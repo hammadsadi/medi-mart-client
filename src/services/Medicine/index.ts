@@ -27,6 +27,8 @@ export const createMedicine = async (data: any) => {
 
 // Get All Medicine
 export const getAllMedicines = async (
+  // page: number,
+  // limit: number,
   searchTerm: string,
   query: { [key: string]: string | string[] | undefined }
 ) => {
@@ -47,6 +49,12 @@ export const getAllMedicines = async (
   if (searchTerm) {
     params.append("searchTerm", searchTerm.toString());
   }
+  // if (page) {
+  //   params.append("page", page.toString());
+  // }
+  // if (limit) {
+  //   params.append("limit", limit.toString());
+  // }
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_BASE_URL}/medicine?${params}`,

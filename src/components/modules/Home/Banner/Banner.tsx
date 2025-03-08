@@ -1,6 +1,17 @@
-import React from "react";
+"use client";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const Banner = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const handleSearchQuery = (query: string, value: string | number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(query, value.toString());
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
   return (
     <section className="relative bg-[url(https://res.cloudinary.com/dhfvwgwty/image/upload/v1740941927/doctor-wearing-medical-equipment-with-copy-space_sm6n76.jpg)] bg-cover bg-center bg-no-repeat">
       <div className="absolute inset-0 bg-gradient-to-r from-gray-900/95 to-gray-900/20"></div>
@@ -27,6 +38,9 @@ const Banner = () => {
               <input
                 type="text"
                 id="Search"
+                onChange={(e) =>
+                  handleSearchQuery("searchTerm", e.target.value)
+                }
                 placeholder="Search for..."
                 className="w-full rounded-md border-gray-200 focus:outline-none  py-2.5 pe-10 pl-2 shadow-xs sm:text-sm"
               />

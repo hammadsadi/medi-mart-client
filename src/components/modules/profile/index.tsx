@@ -35,7 +35,7 @@ const ManageProfile = ({ userInfo }: { userInfo: TLoggedInUser }) => {
         {/* <div className="text-center mt-1">
           <Button size="sm">Edit Profile</Button>
         </div> */}
-        <ProfileUpdateModal />
+        <ProfileUpdateModal userInfo={userInfo} />
         <ul className="py-4 mt-2 text-gray-700 flex items-center justify-around">
           <li className="flex flex-col items-center justify-around">
             <svg
