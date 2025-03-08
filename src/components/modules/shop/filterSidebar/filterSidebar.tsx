@@ -7,10 +7,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { X, Filter } from "lucide-react"; 
 
-export default function FilterSidebar() {
-  const [isOpen, setIsOpen] = useState(false); 
-  const [showFilterButton, setShowFilterButton] = useState(true)
 
+export default function FilterSidebar({
+  medicineCat,
+}: {
+  medicineCat: string[];
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [showFilterButton, setShowFilterButton] = useState(true);
+  const [medicinePrice, setMedicinePrice] = useState([0]);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -19,22 +24,22 @@ export default function FilterSidebar() {
   const handleSearchQuery = (query: string, value: string | number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set(query, value.toString());
-    router.push(`${pathname}?${params}`, { scroll: false });
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
-  // Scroll Wise Handle Filter Button 
-  useEffect(()=>{
-    const handleScroll = () =>{
-      if(window.scrollY < 200){
-        setShowFilterButton(false)
-      }else{
-          setShowFilterButton(true);
+  // Scroll Wise Handle Filter Button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY < 200) {
+        setShowFilterButton(false);
+      } else {
+        setShowFilterButton(true);
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  },[])
+  }, []);
   return (
     <>
       {/*  Filter Button For Mobile Device */}
@@ -78,34 +83,60 @@ export default function FilterSidebar() {
           <h2 className="text-lg font-semibold mb-4">Price</h2>
           <div className="flex items-center justify-between text-sm mb-2">
             <span>$0</span>
-            <span>$500000</span>
+            <span>$5000</span>
           </div>
           <Slider
-            max={500000}
+            max={5000}
             step={1}
-            onValueChange={(value) => handleSearchQuery("price", value[0])}
+            onValueChange={(value) => {
+              setMedicinePrice(value);
+              handleSearchQuery("price", value[0]);
+            }}
             className="w-full"
           />
+          <p className="text-sm mt-2">Selected Price: {medicinePrice[0]}</p>
         </div>
 
         {/* Product Category */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-4">Product Category</h2>
+          <h2 className="text-lg font-semibold mb-4">Medicine Category</h2>
           <RadioGroup className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value={"44"} id={"44"} />
-              <Label className="text-gray-500 font-light">Saff</Label>
-            </div>
+            {medicineCat?.map((item, idx) => (
+              <div key={idx} className="flex items-center space-x-2">
+                <RadioGroupItem
+                  value={item}
+                  id={item}
+                  onClick={() => handleSearchQuery("category", item)}
+                />
+                <Label className="text-gray-500 font-light">{item}</Label>
+              </div>
+            ))}
           </RadioGroup>
         </div>
 
         {/* Brands */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-4">Brands</h2>
+          <h2 className="text-lg font-semibold mb-4">Prescription Required</h2>
           <RadioGroup className="space-y-2">
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value={"sas"} id={"22"} />
-              <Label className="text-gray-500 font-light">Brand</Label>
+              <RadioGroupItem
+                value={"true"}
+                id={"22"}
+                onClick={() =>
+                  handleSearchQuery("prescriptionRequired", "true")
+                }
+              />
+              <Label className="text-gray-500 font-light">Yes</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem
+                value={"false"}
+                id={"22"}
+                onClick={() =>
+                  handleSearchQuery("prescriptionRequired", "false")
+                }
+              />
+              <Label className="text-gray-500 font-light">No</Label>
             </div>
           </RadioGroup>
         </div>

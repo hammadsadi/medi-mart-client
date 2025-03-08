@@ -73,7 +73,7 @@ const CreateMedicinePage = () => {
 
   // Handle Submit Product Add Form
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const createToastId = toast.loading('createingToast')
+    const createToastId = toast.loading("createing Medicine...");
     try {
         const resimagUrl = await uploadImage(data?.imageUrl);
         // Modify Key Features

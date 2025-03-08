@@ -26,10 +26,30 @@ export const createMedicine = async (data: any) => {
 };
 
 // Get All Medicine
-export const getAllMedicines = async () => {
+export const getAllMedicines = async (
+  searchTerm: string,
+  query: { [key: string]: string | string[] | undefined }
+) => {
+  const params = new URLSearchParams();
+  if (query?.price) {
+    params.append("minPrice", "0");
+    params.append("maxPrice", query?.price?.toString());
+  }
+  if (query?.category) {
+    params.append("category", query?.category?.toString());
+  }
+  if (query?.prescriptionRequired) {
+    params.append(
+      "prescriptionRequired",
+      query?.prescriptionRequired?.toString()
+    );
+  }
+  if (searchTerm) {
+    params.append("searchTerm", searchTerm.toString());
+  }
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/medicine`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/medicine?${params}`,
       {
         next: {
           tags: ["MEDICINE"],
@@ -60,6 +80,20 @@ export const getSingleMedicines = async (id: string) => {
     return Error(error);
   }
 };
+
+// Get All Medicine Category
+export const getAllMedicineCategories = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/medicine/category`
+    );
+
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
 
 // Update Medicine
 export const updateMedicine = async (data: any, medicineId: string) => {

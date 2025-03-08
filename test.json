@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Metformin 500mg",
+    "description": "Metformin is an oral diabetes medicine that helps control blood sugar levels in people with type 2 diabetes. It works by decreasing glucose production in the liver and improving the body's response to insulin.",
+    "price": 150,
+    "stock": 130,
+    "prescriptionRequired": true,
+    "manufacturer": "DiabeCare Pharma",
+    "expiryDate": "2026-09-30",
+    "category": "Diabetes Medication",
+    "symptoms": ["Diabetes", "High Blood Sugar"],
+    "imageUrl": "https://example.com/metformin.jpg"
+  },
+  {
+    "name": "Omeprazole 20mg",
+    "description": "Omeprazole is a proton pump inhibitor (PPI) used to treat gastroesophageal reflux disease (GERD), stomach ulcers, and acid reflux. It works by reducing the amount of acid produced in the stomach, thus relieving heartburn and indigestion.",
+    "price": 90,
+    "stock": 170,
+    "prescriptionRequired": false,
+    "manufacturer": "GastroHeal Ltd.",
+    "expiryDate": "2027-01-10",
+    "category": "Acid Reducer",
+    "symptoms": ["Acid Reflux", "Heartburn", "Stomach Ulcers"],
+    "imageUrl": "https://example.com/omeprazole.jpg"
+  },
+  {
+    "name": "Aspirin 75mg",
+    "description": "Aspirin is a blood thinner and pain reliever that is commonly used to reduce the risk of heart attacks and strokes. It also helps relieve mild to moderate pain, fever, and inflammation by inhibiting the production of certain chemicals in the body.",
+    "price": 70,
+    "stock": 140,
+    "prescriptionRequired": false,
+    "manufacturer": "HeartWell Pharma",
+    "expiryDate": "2026-06-20",
+    "category": "Cardiovascular",
+    "symptoms": ["Heart Disease", "Pain", "Fever"],
+    "imageUrl": "https://example.com/aspirin.jpg"
+  }
+]

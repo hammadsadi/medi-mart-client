@@ -1,12 +1,15 @@
 import { TMedicine } from "@/types/medicines.types";
 import FilterSidebar from "../filterSidebar/filterSidebar";
 import ShopItem from "../shopItem/ShopItem";
+import { getAllMedicineCategories } from "@/services/Medicine";
 
-const AllMedicines = ({ medicines }: { medicines: TMedicine[] }) => {
+const AllMedicines = async ({ medicines }: { medicines: TMedicine[] }) => {
+  const { data: medicineCat } = await getAllMedicineCategories();
+
   return (
     <div className="flex gap-5 my-10 relative">
       {/* Sidebar */}
-      <FilterSidebar />
+      <FilterSidebar medicineCat={medicineCat} />
 
       {/* Products Section */}
       <div className="flex-1">
