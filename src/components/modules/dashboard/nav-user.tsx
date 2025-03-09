@@ -27,7 +27,7 @@ import { useUser } from "@/context/UserContext";
 import { logOutUser } from "@/services/AuthServices";
 import { protectedRoutes } from "@/constants";
 
-export function NavUser({}) {
+export function NavUser() {
   const { isMobile } = useSidebar();
   const { user, setIsLoading } = useUser();
   const pathanme = usePathname();

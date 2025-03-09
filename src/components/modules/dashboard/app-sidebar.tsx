@@ -2,9 +2,11 @@
 
 import * as React from "react";
 import {
-  BookOpen,
-  Bot,
-  SquareTerminal,
+  Users,
+  BriefcaseMedicalIcon,
+  LogsIcon,
+  HandCoins,
+  LayoutDashboard,
 } from "lucide-react";
 
 import {
@@ -12,10 +14,14 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
+import Link from "next/link";
 
 // This is sample data.
 const data = {
@@ -26,9 +32,15 @@ const data = {
   },
   navMain: [
     {
+      title: "Dashboard",
+      url: "/admin/",
+      icon: LayoutDashboard,
+      isActive: true,
+    },
+    {
       title: "Manage Medicines",
       url: "/admin/medicines",
-      icon: SquareTerminal,
+      icon: BriefcaseMedicalIcon,
       isActive: true,
       items: [
         {
@@ -41,7 +53,7 @@ const data = {
     {
       title: "Manage Orders",
       url: "/admin/orders",
-      icon: Bot,
+      icon: LogsIcon,
       items: [
         {
           title: "Orders",
@@ -52,7 +64,7 @@ const data = {
     {
       title: "Manage Users",
       url: "/admin/users",
-      icon: BookOpen,
+      icon: Users,
       items: [
         {
           title: "Users",
@@ -63,7 +75,7 @@ const data = {
     {
       title: "Manage Coupons",
       url: "/admin/coupon",
-      icon: BookOpen,
+      icon: HandCoins,
       items: [
         {
           title: "Coupons",
@@ -78,13 +90,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        {/* <TeamSwitcher teams={data.teams} /> */}
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <Link href="/">
+                <div className="flex items-center justify-center">Logo</div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <h2 className="font-bold text-xl">Medi Mart</h2>
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

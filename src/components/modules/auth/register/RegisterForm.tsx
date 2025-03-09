@@ -18,28 +18,30 @@ import { registerValidationSchema } from "./registerValidationSchema";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoaderCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useUser } from "@/context/UserContext";
 const RegisterForm = () => {
-     const searchParams = useSearchParams();
-       const redirect = searchParams.get("redirectPath");
-         const router = useRouter();
-const form = useForm({
-  resolver: zodResolver(registerValidationSchema),
-});
+  const { setIsLoading } = useUser();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectPath");
+  const router = useRouter();
+  const form = useForm({
+    resolver: zodResolver(registerValidationSchema),
+  });
   const {
     formState: { isSubmitting },
   } = form;
-//   const { setIsLoading } = useUser();
+  //   const { setIsLoading } = useUser();
   // Form Value Watch
   const password = form.watch("password");
   const confirmPassword = form.watch("confirmPassword");
 
   // Register Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data)
+    console.log(data);
     try {
       // Form Data Send to Server action
       const res = await userRegister(data);
-    //   setIsLoading(true);
+      setIsLoading(true);
       // Toast Handle
       if (res?.success) {
         toast.success(res?.message);
@@ -62,9 +64,7 @@ const form = useForm({
           {/* <ShopZenLogo /> */}
           <div className="space-y-1">
             <h2 className="font-bold text-lg md:text-2xl">Medi Mart</h2>
-            <p className="text-xs">
-             Fillup This Form to Sign Up.
-            </p>
+            <p className="text-xs">Fillup This Form to Sign Up.</p>
           </div>
         </div>
         <Form {...form}>

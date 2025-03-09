@@ -47,7 +47,7 @@ export type TOrderInfo = {
   user: string;
   medicines: Medicine[];
   totalPrice: number;
-  orderStatus: "Pending" | "Processing" | "Completed" | "Cancelled";
+  orderStatus: "Pending" | "Processing" | "Shipped" | "Delivered";
   isCheck: "In-Review" | "Accepted" | "Deny";
   deliveryOption: "Home-Delivery" | "Express-Delivery";
   deliveryArea: string;
@@ -58,6 +58,35 @@ export type TOrderInfo = {
   transaction: Transaction;
   createdAt: string;
   updatedAt: string;
+  __v: number;
+};
+
+type TPaymentTransaction = {
+  bank_status: string;
+  date_time: string;
+  id: string;
+  method: string;
+  sp_code: string;
+  sp_message: string;
+  transaction_status: string | null;
+};
+
+export type TOrderUserOrderHistory = {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  deliveryArea: string;
+  deliveryCharge: number;
+  deliveryDetailsAddress: string;
+  deliveryOption: string;
+  discount: number;
+  isCheck: "Deny" | "Approved" | "Pending";
+  medicines: Medicine[];
+  orderStatus: "Processing" | "Shipped" | "Delivered" | "Pending";
+  paymentStatus: "Paid" | "Cancelled" | "Pending";
+  totalPrice: number;
+  transaction: TPaymentTransaction;
+  user: string;
   __v: number;
 };
 
