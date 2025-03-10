@@ -47,7 +47,7 @@ export default function FilterSidebar({
       {showFilterButton && (
         <Button
           onClick={() => setIsOpen(true)}
-          className="lg:hidden fixed top-4 left-4 z-50 text-white p-2 rounded-md shadow-lg"
+          className="lg:hidden fixed top-20 left-4 z-50 text-white p-2 rounded-md shadow-lg"
         >
           <Filter className="w-5 h-5" />
         </Button>

@@ -1,5 +1,5 @@
 import { getStaticsInfoForAdmin } from "@/services/OrderServices";
-import { Briefcase, ChartSpline, DollarSign, User } from "lucide-react";
+import { ChartSpline, DollarSign, Layers2, ListRestart } from "lucide-react";
 import React from "react";
 
 const AdminPage = async () => {
@@ -30,14 +30,14 @@ const AdminPage = async () => {
             <div
               className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-green-600 to-green-400 text-white shadow-green-500/40`}
             >
-              <User className="w-6 h-6 text-white" />
+              <Layers2 className="w-6 h-6 text-white" />
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total User
+                Stock Lavels
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                {staticsInfo?.totalUsers}
+                {staticsInfo?.stockLavel}
               </h4>
             </div>
           </div>
@@ -62,14 +62,14 @@ const AdminPage = async () => {
             <div
               className={`bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center from-pink-600 to-pink-400 text-white shadow-pink-500/40`}
             >
-              <Briefcase className="w-6 h-6 text-white" />
+              <ListRestart className="w-6 h-6 text-white" />
             </div>
             <div className="p-4 text-right">
               <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
-                Total Medicine
+                Pending Prescription
               </p>
               <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                {staticsInfo?.totalMedicine}
+                {staticsInfo?.totalPendingPrescription}
               </h4>
             </div>
           </div>

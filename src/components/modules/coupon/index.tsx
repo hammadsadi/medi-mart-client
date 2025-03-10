@@ -314,7 +314,7 @@ const ManageCoupon = ({ coupons }: { coupons: TCoupon[] }) => {
         </Form>
       </MyModal>
       <div className="flex items-center justify-between py-5">
-        <h1 className="text-xl font-bold">Manage Products</h1>
+        <h1 className="text-xl font-bold">Manage Coupons</h1>
         <div className="flex items-center gap-2">
           <Button onClick={() => setIsOpen(true)} size="sm">
             Add Product <Plus />

@@ -1,5 +1,5 @@
 "use client";
-import { LogOut, ShoppingBag } from "lucide-react";
+import { LogOut, MenuIcon, ShoppingBag } from "lucide-react";
 import Logo from "../Logo/Logo";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -36,13 +36,13 @@ export default function Navbar() {
   return (
     <header className="border-b  bg-white w-full sticky top-0 z-10">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
-        <h1 className="text-2xl font-black flex items-center">
+        <h1 className=" text-lg md:text-2xl font-black flex items-center">
           <Logo />
           Medi Mart
         </h1>
-        <div className="max-w-md  flex-grow">
+        <div className="max-w-md hidden md:flex flex-grow">
           <nav>
-            <ul className="flex items-center gap-7">
+            <ul className="flex items-center gap-3 md:gap-7">
               <li>
                 <Link href="/" className="transition-all hover:text-primary">
                   Home
@@ -61,11 +61,6 @@ export default function Navbar() {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link href="/" className="transition-all hover:text-primary">
-                  Medicines
-                </Link>
-              </li>
             </ul>
           </nav>
         </div>
@@ -81,56 +76,94 @@ export default function Navbar() {
               <ShoppingBag />
             </Button>
           </Link>
-
-          {user ? (
+          <div className="md:hidden flex">
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage
-                    src={`${
-                      user?.image ||
-                      "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png"
-                    }`}
-                  />
-                  <AvatarFallback className="uppercase">
-                    {user?.name?.slice(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
+              <DropdownMenuTrigger className="focus:outline-none">
+                <MenuIcon />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {user.role === "Customer" && (
-                  <>
-                    <DropdownMenuItem>
-                      <Link href="/profile">Profile</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link href="/orders">Orders History</Link>
-                    </DropdownMenuItem>
-                  </>
-                )}
-
-                {user.role === "Admin" && (
-                  <DropdownMenuItem>
-                    <Link href="/admin">Dashboard</Link>
-                  </DropdownMenuItem>
-                )}
-
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="cursor-pointer"
-                  onClick={handleLogout}
-                >
-                  <LogOut /> Logout
+                <DropdownMenuItem>
+                  <Link href="/">Home</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/shop">Shop</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/contact">Contact</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  {user ? (
+                    <Avatar>
+                      <AvatarImage
+                        src={`${
+                          user?.image ||
+                          "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png"
+                        }`}
+                      />
+                      <AvatarFallback className="uppercase">
+                        {user?.name?.slice(0, 2)}
+                      </AvatarFallback>
+                    </Avatar>
+                  ) : (
+                    <Link href="/login">
+                      <Button className="">Login</Button>
+                    </Link>
+                  )}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
-            <Link href="/login">
-              <Button>Login</Button>
-            </Link>
-          )}
+          </div>
+          <div className="hidden md:flex">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    <AvatarImage
+                      src={`${
+                        user?.image ||
+                        "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png"
+                      }`}
+                    />
+                    <AvatarFallback className="uppercase">
+                      {user?.name?.slice(0, 2)}
+                    </AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {user.role === "Customer" && (
+                    <>
+                      <DropdownMenuItem>
+                        <Link href="/profile">Profile</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Link href="/orders">Orders History</Link>
+                      </DropdownMenuItem>
+                    </>
+                  )}
+
+                  {user.role === "Admin" && (
+                    <DropdownMenuItem>
+                      <Link href="/admin">Dashboard</Link>
+                    </DropdownMenuItem>
+                  )}
+
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleLogout}
+                  >
+                    <LogOut /> Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link href="/login">
+                <Button>Login</Button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </header>

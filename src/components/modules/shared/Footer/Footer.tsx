@@ -1,19 +1,25 @@
 import React from 'react'
 import Logo from '../Logo/Logo';
+import Link from "next/link";
 
 const Footer = () => {
-    const date = new Date()
+  const date = new Date();
   return (
     <footer className="bg-gray-100 mt-12 md:mt-16">
       <div className="mx-auto max-w-screen-xl px-4 pb-6 pt-16 sm:px-6 lg:px-8 lg:pt-24">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
-            <div className="flex justify-center text-teal-600 sm:justify-start">
-              <Logo />
+            <div className="flex justify-center sm:justify-start">
+              <h1 className=" text-lg md:text-2xl font-black flex items-center">
+                <Logo />
+                Medi Mart
+              </h1>
             </div>
 
             <p className="mt-6 max-w-md text-center leading-relaxed text-gray-500 sm:max-w-xs sm:text-left">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              We offer a wide range of quality medicines from trusted sources
+              with fast delivery and easy ordering. Get your essential meds and
+              healthcare products hassle-free!
             </p>
 
             <ul className="mt-8 flex justify-center gap-6 sm:justify-start md:gap-8">
@@ -41,8 +47,8 @@ const Footer = () => {
               </li>
 
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/"
                   rel="noreferrer"
                   target="_blank"
                   className="text-primary transition hover:text-primary/75"
@@ -60,12 +66,12 @@ const Footer = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/"
                   rel="noreferrer"
                   target="_blank"
                   className="text-primary transition hover:text-primary/75"
@@ -79,7 +85,7 @@ const Footer = () => {
                   >
                     <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                   </svg>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -90,40 +96,39 @@ const Footer = () => {
 
               <ul className="mt-8 space-y-4 text-sm">
                 <li>
-                  <a
+                  <Link
                     className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
+                    href="/"
                   >
                     Company History
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
+                    href="/"
                   >
                     Meet the Team
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
+                    href="/"
                   >
                     Employee Handbook
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
+                    href="/"
                   >
-                    {" "}
-                    Careers{" "}
-                  </a>
+                    Careers
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -133,42 +138,30 @@ const Footer = () => {
 
               <ul className="mt-8 space-y-4 text-sm">
                 <li>
-                  <a
+                  <Link
                     className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
+                    href="/"
                   >
-                    Web Development
-                  </a>
+                    Home Delivery
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
+                    href="/"
                   >
-                    {" "}
-                    Web Design{" "}
-                  </a>
+                    Store Pickup
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
+                    href="/"
                   >
-                    {" "}
-                    Marketing{" "}
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
-                  >
-                    {" "}
-                    Google Ads{" "}
-                  </a>
+                    Express Delivery
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -178,29 +171,27 @@ const Footer = () => {
 
               <ul className="mt-8 space-y-4 text-sm">
                 <li>
-                  <a
+                  <Link
                     className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
+                    href="/"
                   >
-                    {" "}
-                    FAQs{" "}
-                  </a>
+                    FAQs
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="text-gray-700 transition hover:text-gray-700/75"
-                    href="#"
+                    href="/"
                   >
-                    {" "}
-                    Support{" "}
-                  </a>
+                    Support
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="group flex gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
-                    href="#"
+                    href="/"
                   >
                     <span className="text-gray-700 transition group-hover:text-gray-700/75">
                       Live Chat
@@ -210,7 +201,7 @@ const Footer = () => {
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
                       <span className="relative inline-flex size-2 rounded-full bg-primary"></span>
                     </span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -220,9 +211,9 @@ const Footer = () => {
 
               <ul className="mt-8 space-y-4 text-sm">
                 <li>
-                  <a
+                  <Link
                     className="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
-                    href="#"
+                    href="/"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -240,13 +231,13 @@ const Footer = () => {
                     </svg>
 
                     <span className="flex-1 text-gray-700">john@doe.com</span>
-                  </a>
+                  </Link>
                 </li>
 
                 <li>
-                  <a
+                  <Link
                     className="flex items-center justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
-                    href="#"
+                    href="/"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -264,7 +255,7 @@ const Footer = () => {
                     </svg>
 
                     <span className="flex-1 text-gray-700">0123456789</span>
-                  </a>
+                  </Link>
                 </li>
 
                 <li className="flex items-start justify-center gap-1.5 ltr:sm:justify-start rtl:sm:justify-end">
@@ -302,21 +293,21 @@ const Footer = () => {
             <p className="text-sm text-gray-500">
               <span className="block sm:inline">All rights reserved.</span>
 
-              <a
+              <Link
                 className="inline-block text-primary hover:underline transition "
-                href="#"
+                href="/"
               >
                 Terms & Conditions
-              </a>
+              </Link>
 
               <span>&middot;</span>
 
-              <a
+              <Link
                 className="inline-block text-primary hover:underline transition "
-                href="#"
+                href="/"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </p>
 
             <p className="mt-4 text-sm text-gray-500 sm:order-first sm:mt-0">
@@ -327,6 +318,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer
