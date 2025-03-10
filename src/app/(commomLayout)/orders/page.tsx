@@ -5,7 +5,7 @@ import React from "react";
 const OrdersPage = async ({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | undefined };
+  searchParams?: Promise<{ [key: string]: string | undefined }>;
 }) => {
   const searchId = await searchParams;
   const { data: myOrders } = await getMyOrders();

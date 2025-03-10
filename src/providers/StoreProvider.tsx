@@ -5,7 +5,7 @@ import { ReactNode, useRef } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import MMLoader from "@/components/modules/shared/MMLoader/MMLoader";
+// import MMLoader from "@/components/modules/shared/MMLoader/MMLoader";
 
 const StoreProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<AppStore>(undefined);

@@ -122,7 +122,6 @@ const AdminOrderManage = ({ allOrders }: { allOrders:TOrderInfo[] }) => {
       header: "Delivery Status",
       cell: ({ row }) => (
         <span>
-          {/* {row?.original?.orderStatus} */}
           <Select
             onValueChange={(value) =>
               handledeliveryStatus(row?.original?._id, value)
@@ -175,7 +174,6 @@ const AdminOrderManage = ({ allOrders }: { allOrders:TOrderInfo[] }) => {
           <h1 className="text-xl font-bold">Manage Order</h1>
         </div>
         <MMTable columns={columns} data={allOrders || []} />
-        {/* <TablePagination totalPage={meta?.totalPage} /> */}
       </div>
     </>
   );

@@ -1,8 +1,14 @@
 import ManageMedicines from "@/components/modules/medicine";
 import { getAllMedicines } from "@/services/Medicine";
 import React from "react";
-const MedicinesPage = async () => {
-  const { data: medicineData } = await getAllMedicines();
+type TSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+const MedicinesPage = async ({
+  searchParams,
+}: {
+  searchParams: TSearchParams;
+}) => {
+  const query = await searchParams;
+  const { data: medicineData } = await getAllMedicines("", query);
   return (
     <div>
       <ManageMedicines medicines={medicineData?.data} />
