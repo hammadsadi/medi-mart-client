@@ -34,7 +34,7 @@ export default function Navbar() {
     }
   };
   return (
-    <header className="border-b  bg-white w-full sticky top-0 z-10">
+    <header className="border-b  bg-white w-full sticky top-0 z-[300px]">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
         <h1 className=" text-lg md:text-2xl font-black flex items-center">
           <Logo />
@@ -58,7 +58,7 @@ export default function Navbar() {
               </li>
               <li>
                 <Link href="/" className="transition-all hover:text-primary">
-                  Contact
+                  About Us
                 </Link>
               </li>
             </ul>
@@ -89,7 +89,7 @@ export default function Navbar() {
                   <Link href="/shop">Shop</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/contact">Contact</Link>
+                  <Link href="/aboutus">About</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   {user ? (

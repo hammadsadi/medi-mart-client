@@ -8,7 +8,7 @@ const MedicinesPage = async ({
   searchParams: TSearchParams;
 }) => {
   const query = await searchParams;
-  const { data: medicineData } = await getAllMedicines("", query);
+  const { data: medicineData } = await getAllMedicines(undefined, "", query);
   return (
     <div>
       <ManageMedicines medicines={medicineData?.data} />

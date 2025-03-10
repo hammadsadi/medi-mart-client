@@ -1,9 +1,9 @@
 import React from 'react'
 import CommonBanner from '../shared/CommonBanner/CommonBanner'
 import MyContainer from '../shared/MyContainer/MyContainer';
-import SectionTitle from '../shared/SectionTitle/SectionTitle';
-import AllMedicines from './allMedicines/allMedicines';
+import SectionTitle from "../shared/SectionTitle/SectionTitle";
 import { getAllMedicines } from "@/services/Medicine";
+import AllMedicines from "./allMedicines";
 type TSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 const ShopManage = async ({
@@ -12,7 +12,7 @@ const ShopManage = async ({
   searchParams: TSearchParams;
 }) => {
   const query = await searchParams;
-  const { data: medicines } = await getAllMedicines("", query);
+  const { data: medicines } = await getAllMedicines(1, "", query);
   return (
     <div>
       <CommonBanner mainComponentTitle="Home" subComponentTitle="Shop" />

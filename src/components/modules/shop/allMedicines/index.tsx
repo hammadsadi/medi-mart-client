@@ -1,7 +1,8 @@
 import { TMedicine } from "@/types/medicines.types";
 import FilterSidebar from "../filterSidebar/filterSidebar";
-import ShopItem from "../shopItem/ShopItem";
 import { getAllMedicineCategories } from "@/services/Medicine";
+import MedicinesList from "./medicinesList";
+import LoadMore from "../loadmore/loadmore";
 
 const AllMedicines = async ({ medicines }: { medicines: TMedicine[] }) => {
   const { data: medicineCat } = await getAllMedicineCategories();
@@ -12,11 +13,17 @@ const AllMedicines = async ({ medicines }: { medicines: TMedicine[] }) => {
       <FilterSidebar medicineCat={medicineCat} />
 
       {/* Products Section */}
-      <div className="flex-1">
+      {/* <div className="flex-1">
         <div className="grid xl:grid-cols-3 xl:gap-5 lg:grid-cols-3 lg:gap-3 md:grid-cols-2 md:gap-3 grid-cols-1 gap-2">
           {medicines?.map((medicine: TMedicine) => (
             <ShopItem key={medicine._id} medicine={medicine} />
           ))}
+        </div>
+      </div> */}
+      <div className="flex-1">
+        <div className="grid xl:grid-cols-3 xl:gap-5 lg:grid-cols-3 lg:gap-3 md:grid-cols-2 md:gap-3 grid-cols-1 gap-2">
+          <MedicinesList medicines={medicines} />
+          <LoadMore/>
         </div>
       </div>
     </div>

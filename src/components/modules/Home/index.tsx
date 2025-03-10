@@ -8,7 +8,11 @@ import { getAllMedicines } from "@/services/Medicine";
 const HomePageManage = async ({ searchParams }: { searchParams: any }) => {
   const { query } = await searchParams;
   const { searchTerm } = await searchParams;
-  const { data: allMedicineInfo } = await getAllMedicines(searchTerm, query);
+  const { data: allMedicineInfo } = await getAllMedicines(
+    undefined,
+    searchTerm,
+    query
+  );
   return (
     <div>
       <Banner />
