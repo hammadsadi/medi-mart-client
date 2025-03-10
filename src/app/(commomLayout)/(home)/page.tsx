@@ -1,9 +1,11 @@
 import HomePageManage from "@/components/modules/Home";
-
-export default function HomePage() {
+type TSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+const HomePage = async ({ searchParams }: { searchParams: TSearchParams }) => {
   return (
     <div>
-     <HomePageManage/>
+      <HomePageManage searchParams={searchParams} />
     </div>
   );
-}
+};
+
+export default HomePage;

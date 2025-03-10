@@ -41,10 +41,6 @@ const MedicineDetails = ({ medicineInfo }: { medicineInfo: TMedicine }) => {
           </div>
           <hr />
 
-          {/* <Button variant="outline" className="w-full my-5">
-            Add To Cart
-          </Button>
-          <Button className="w-full">Buy Now</Button> */}
           <DetailsAction medicineData={medicineInfo} />
         </div>
       </div>
