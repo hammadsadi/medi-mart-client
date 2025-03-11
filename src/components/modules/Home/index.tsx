@@ -4,6 +4,7 @@ import Banner from "./Banner/Banner";
 import FeaturesSection from "./Features";
 import CustomerReviews from "./CustomerReviews";
 import { getAllMedicines } from "@/services/Medicine";
+import { getAllReviews } from "@/services/ReviewServices";
 
 const HomePageManage = async ({ searchParams }: { searchParams: any }) => {
   const { query } = await searchParams;
@@ -13,11 +14,12 @@ const HomePageManage = async ({ searchParams }: { searchParams: any }) => {
     searchTerm,
     query
   );
+  const { data: allReviews } = await getAllReviews();
   return (
     <div>
       <Banner />
       <FeaturesSection allMedicineInfo={allMedicineInfo?.data} />
-      <CustomerReviews />
+      <CustomerReviews allReviews={allReviews} />
     </div>
   );
 };

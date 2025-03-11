@@ -12,7 +12,8 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-const CustomerReviews = () => {
+import { TReview } from "@/types/reviews";
+const CustomerReviews = ({ allReviews }: { allReviews: TReview[] }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   useEffect(() => {
@@ -27,7 +28,7 @@ const CustomerReviews = () => {
     });
   }, [api]);
   return (
-    <div>
+    <div className="">
       <MyContainer>
         <div>
           <SectionTitle
@@ -45,9 +46,12 @@ const CustomerReviews = () => {
           className="w-full"
         >
           <CarouselContent>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                <ReviewItem />
+            {allReviews?.slice(0, 6)?.map((item: TReview) => (
+              <CarouselItem
+                key={item?._id}
+                className="md:basis-1/2 lg:basis-1/3"
+              >
+                <ReviewItem reviewItem={item} />
               </CarouselItem>
             ))}
           </CarouselContent>

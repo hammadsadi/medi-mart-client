@@ -5,7 +5,7 @@ import { ReactNode, useRef } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-// import MMLoader from "@/components/modules/shared/MMLoader/MMLoader";
+import MMLoader from "@/components/modules/shared/MMLoader/MMLoader";
 
 const StoreProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<AppStore>(undefined);
@@ -15,10 +15,7 @@ const StoreProvider = ({ children }: { children: ReactNode }) => {
   const persistedStore = persistStore(storeRef.current);
   return (
     <Provider store={storeRef.current}>
-      {/* <PersistGate loading={<MMLoader />} persistor={persistedStore}>
-        {children}
-      </PersistGate> */}
-      <PersistGate loading={null} persistor={persistedStore}>
+      <PersistGate loading={<MMLoader />} persistor={persistedStore}>
         {children}
       </PersistGate>
     </Provider>

@@ -15,13 +15,15 @@ const ManageOrders = ({ myOrders }: { myOrders: TOrderInfo[] }) => {
     {
       accessorKey: "medicines",
       header: "Medicine Name",
-      cell: ({ row }) => (
-        <div className="flex items-center space-x-3">
-          <span className="truncate">
-            {row.original.medicines[0].medicine?.name}
-          </span>
-        </div>
-      ),
+      cell: ({ row }) => {
+        return (
+          <div className="flex items-center space-x-3">
+            <span className="truncate">
+              {row.original.medicines[0].medicine?.name}
+            </span>
+          </div>
+        );
+      },
     },
     {
       accessorKey: "totalPrice",

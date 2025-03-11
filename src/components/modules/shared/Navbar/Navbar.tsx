@@ -34,11 +34,11 @@ export default function Navbar() {
     }
   };
   return (
-    <header className="border-b  bg-white w-full sticky top-0 z-[300px]">
+    <header className="border-b  bg-white w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
         <h1 className=" text-lg md:text-2xl font-black flex items-center">
           <Logo />
-          Medi Mart
+          <Link href="/">Medi Mart</Link>
         </h1>
         <div className="max-w-md hidden md:flex flex-grow">
           <nav>
@@ -57,7 +57,10 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link href="/" className="transition-all hover:text-primary">
+                <Link
+                  href="/about"
+                  className="transition-all hover:text-primary"
+                >
                   About Us
                 </Link>
               </li>
@@ -89,21 +92,28 @@ export default function Navbar() {
                   <Link href="/shop">Shop</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/aboutus">About</Link>
+                  <Link href="/about">About</Link>
                 </DropdownMenuItem>
+                {user && (
+                  <DropdownMenuItem>
+                    <Link href="/orders">Order History</Link>
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem>
                   {user ? (
-                    <Avatar>
-                      <AvatarImage
-                        src={`${
-                          user?.image ||
-                          "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png"
-                        }`}
-                      />
-                      <AvatarFallback className="uppercase">
-                        {user?.name?.slice(0, 2)}
-                      </AvatarFallback>
-                    </Avatar>
+                    <Link href="/profile">
+                      <Avatar>
+                        <AvatarImage
+                          src={`${
+                            user?.image ||
+                            "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png"
+                          }`}
+                        />
+                        <AvatarFallback className="uppercase">
+                          {user?.name?.slice(0, 2)}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Link>
                   ) : (
                     <Link href="/login">
                       <Button className="">Login</Button>

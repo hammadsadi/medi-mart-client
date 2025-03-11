@@ -190,7 +190,7 @@ const Footer = () => {
 
                 <li>
                   <Link
-                    className="group flex gap-1.5 ltr:sm:justify-start rtl:sm:justify-end"
+                    className="group flex gap-1.5  justify-center md:justify-start"
                     href="/"
                   >
                     <span className="text-gray-700 transition group-hover:text-gray-700/75">

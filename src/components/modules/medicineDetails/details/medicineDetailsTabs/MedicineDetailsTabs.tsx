@@ -24,7 +24,7 @@ export function MedicineDetailsTabs({
         </TabsContent>
         {/* Two Tabe */}
         <TabsContent value="reviews">
-          <Reviews />
+          <Reviews medicineId={medicineInfo?._id} />
         </TabsContent>
       </Tabs>
     </div>
