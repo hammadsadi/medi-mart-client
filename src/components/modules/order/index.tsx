@@ -19,7 +19,7 @@ const ManageOrders = ({ myOrders }: { myOrders: TOrderInfo[] }) => {
         return (
           <div className="flex items-center space-x-3">
             <span className="truncate">
-              {row.original.medicines[0].medicine?.name}
+              {row.original.medicines[0].medicine?.name?.slice(0, 10)}
             </span>
           </div>
         );
