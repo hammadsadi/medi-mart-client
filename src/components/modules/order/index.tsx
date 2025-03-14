@@ -57,7 +57,7 @@ const ManageOrders = ({ myOrders }: { myOrders: TOrderInfo[] }) => {
           className={cn(
             " py-[2px] px-1 text-xs rounded",
             row.original.isCheck === "In-Review" && "bg-yellow-400",
-            row.original.isCheck === "Accepted" && "bg-primary",
+            row.original.isCheck === "Accepted" && "bg-primary text-white",
             row.original.isCheck === "Deny" && "bg-rose-600"
           )}
         >

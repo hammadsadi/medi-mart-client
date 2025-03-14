@@ -18,7 +18,7 @@ const ShopManage = async ({
       <CommonBanner mainComponentTitle="Home" subComponentTitle="Shop" />
       <MyContainer>
         <SectionTitle
-          sectionSubTitle="By Your Medicines What Your need"
+          sectionSubTitle="Latest Breakthroughs in Medicine"
           sectionTitle="Latest Medicines"
         />
         <div>
