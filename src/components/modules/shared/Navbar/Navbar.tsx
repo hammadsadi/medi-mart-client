@@ -34,6 +34,12 @@ export default function Navbar() {
     }
   };
 
+  // Helper to check active nav item
+  const isActive = (path: string, exact = false) => {
+    if (exact) return pathname === path;
+    return pathname.startsWith(path);
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b bg-white w-full shadow-sm">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
@@ -44,9 +50,14 @@ export default function Navbar() {
 
         <div className="max-w-md hidden md:flex flex-grow">
           <nav>
-            <ul className="flex items-center gap-3 md:gap-7">
+            <ul className="flex items-center gap-3 md:gap-5 text-base">
               <li>
-                <Link href="/" className="transition-all hover:text-primary">
+                <Link
+                  href="/"
+                  className={`transition-all hover:text-primary ${
+                    isActive("/", true) ? "text-primary font-semibold" : ""
+                  }`}
+                >
                   Home
                 </Link>
               </li>
@@ -55,7 +66,9 @@ export default function Navbar() {
               <li className="relative group">
                 <Link
                   href="/shop"
-                  className="transition-all hover:text-primary"
+                  className={`transition-all hover:text-primary ${
+                    isActive("/shop") ? "text-primary font-semibold" : ""
+                  }`}
                 >
                   Shop
                 </Link>
@@ -115,10 +128,48 @@ export default function Navbar() {
 
               <li>
                 <Link
-                  href="/about"
-                  className="transition-all hover:text-primary"
+                  href="/doctors"
+                  className={`transition-all hover:text-primary ${
+                    isActive("/doctors", true)
+                      ? "text-primary font-semibold"
+                      : ""
+                  }`}
                 >
-                  About Us
+                  Doctors
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/health-tips"
+                  className={`transition-all hover:text-primary ${
+                    isActive("/health-tips", true)
+                      ? "text-primary font-semibold"
+                      : ""
+                  }`}
+                >
+                  Health Tips
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className={`transition-all hover:text-primary ${
+                    isActive("/about", true) ? "text-primary font-semibold" : ""
+                  }`}
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className={`transition-all hover:text-primary ${
+                    isActive("/contact", true)
+                      ? "text-primary font-semibold"
+                      : ""
+                  }`}
+                >
+                  Contact
                 </Link>
               </li>
             </ul>
