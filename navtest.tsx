@@ -1,10 +1,10 @@
 "use client";
-
 import { LogOut, MenuIcon, ShoppingBag } from "lucide-react";
 import Logo from "../Logo/Logo";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,13 +19,13 @@ import { usePathname, useRouter } from "next/navigation";
 import { protectedRoutes } from "@/constants";
 import { useAppSelector } from "@/redux/hooks";
 import { cartMedicineSelector } from "@/redux/features/cart/cartSlice";
-
 export default function Navbar() {
   const { user, setIsLoading } = useUser();
   const pathname = usePathname();
   const router = useRouter();
   const medicinesAll = useAppSelector(cartMedicineSelector);
 
+  // Handle Logout
   const handleLogout = async () => {
     await logOutUser();
     setIsLoading(true);
@@ -33,15 +33,13 @@ export default function Navbar() {
       router.push("/");
     }
   };
-
   return (
-    <header className="sticky top-0 z-50 border-b bg-white w-full shadow-sm">
+    <header className="border-b  bg-white w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
-        <h1 className="text-lg md:text-2xl font-black flex items-center gap-1">
+        <h1 className=" text-lg md:text-2xl font-black flex items-center">
           <Logo />
           <Link href="/">Medi Mart</Link>
         </h1>
-
         <div className="max-w-md hidden md:flex flex-grow">
           <nav>
             <ul className="flex items-center gap-3 md:gap-7">
@@ -50,69 +48,14 @@ export default function Navbar() {
                   Home
                 </Link>
               </li>
-
-              {/* Mega Menu for Shop */}
-              <li className="relative group">
+              <li>
                 <Link
                   href="/shop"
                   className="transition-all hover:text-primary"
                 >
                   Shop
                 </Link>
-
-                {/* Mega Menu Panel */}
-                <div className="absolute left-0 top-full w-[600px] p-6 bg-white shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-2 transform transition-all duration-300 ease-in-out grid grid-cols-3 gap-6 z-50">
-                  <div>
-                    <h4 className="font-semibold mb-2">Categories</h4>
-                    <ul className="space-y-1 text-sm text-gray-700">
-                      <li>
-                        <Link href="/shop/pain-relief">Pain Relief</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/diabetes">Diabetes</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/heart">Heart</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/supplements">Supplements</Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Brands</h4>
-                    <ul className="space-y-1 text-sm text-gray-700">
-                      <li>
-                        <Link href="/shop/napa">Napa</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/seclo">Seclo</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/omeprazole">Omeprazole</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/ors">ORS</Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">More</h4>
-                    <ul className="space-y-1 text-sm text-gray-700">
-                      <li>
-                        <Link href="/offers">Offers</Link>
-                      </li>
-                      <li>
-                        <Link href="/best-sellers">Best Sellers</Link>
-                      </li>
-                      <li>
-                        <Link href="/new-arrivals">New Arrivals</Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
               </li>
-
               <li>
                 <Link
                   href="/about"
@@ -124,9 +67,7 @@ export default function Navbar() {
             </ul>
           </nav>
         </div>
-
         <div className="flex gap-2">
-          {/* Cart Button */}
           <Link href="/cart">
             <Button
               variant="outline"
@@ -138,8 +79,6 @@ export default function Navbar() {
               <ShoppingBag />
             </Button>
           </Link>
-
-          {/* Mobile Dropdown */}
           <div className="md:hidden flex">
             <DropdownMenu>
               <DropdownMenuTrigger className="focus:outline-none">
@@ -165,10 +104,10 @@ export default function Navbar() {
                     <Link href="/profile">
                       <Avatar>
                         <AvatarImage
-                          src={
+                          src={`${
                             user?.image ||
                             "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png"
-                          }
+                          }`}
                         />
                         <AvatarFallback className="uppercase">
                           {user?.name?.slice(0, 2)}
@@ -177,25 +116,23 @@ export default function Navbar() {
                     </Link>
                   ) : (
                     <Link href="/login">
-                      <Button>Login</Button>
+                      <Button className="">Login</Button>
                     </Link>
                   )}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-
-          {/* Desktop Profile Menu */}
           <div className="hidden md:flex">
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
                     <AvatarImage
-                      src={
+                      src={`${
                         user?.image ||
                         "https://res.cloudinary.com/djlpoyqau/image/upload/v1741195711/clinets-profile_gwta7f.png"
-                      }
+                      }`}
                     />
                     <AvatarFallback className="uppercase">
                       {user?.name?.slice(0, 2)}
@@ -215,17 +152,19 @@ export default function Navbar() {
                       </DropdownMenuItem>
                     </>
                   )}
+
                   {user.role === "Admin" && (
                     <DropdownMenuItem>
                       <Link href="/admin">Dashboard</Link>
                     </DropdownMenuItem>
                   )}
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="cursor-pointer"
                     onClick={handleLogout}
                   >
-                    <LogOut className="mr-2" /> Logout
+                    <LogOut /> Logout
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

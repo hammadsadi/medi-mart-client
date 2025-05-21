@@ -5,8 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { X, Filter } from "lucide-react"; 
-
+import { X, Filter } from "lucide-react";
 
 export default function FilterSidebar({
   medicineCat,
