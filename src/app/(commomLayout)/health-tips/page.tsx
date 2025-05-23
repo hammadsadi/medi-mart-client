@@ -1,73 +1,94 @@
 "use client";
 
-import { JSX } from "react";
-import { FaAppleAlt, FaRunning, FaWater, FaBed, FaSmile } from "react-icons/fa";
+import Link from "next/link";
+import Image from "next/image";
+import { CalendarDays } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-interface Tip {
-  id: number;
-  title: string;
-  description: string;
-  icon: JSX.Element;
-}
-
-const tips: Tip[] = [
+const blogPosts = [
   {
     id: 1,
-    title: "Stay Hydrated",
-    description:
-      "Drink at least 8 glasses of water daily to keep your body hydrated.",
-    icon: <FaWater className="text-primary text-4xl" />,
+    title: "Top 5 Immunity Boosters You Should Know",
+    excerpt:
+      "Discover natural ways to strengthen your immune system with supplements and daily habits that really work.",
+    image: "/images/blogs/immunity.jpg",
+    date: "May 20, 2025",
+    slug: "immunity-boosters",
   },
   {
     id: 2,
-    title: "Balanced Diet",
-    description:
-      "Eat a balanced diet rich in fruits, vegetables, lean proteins, and whole grains.",
-    icon: <FaAppleAlt className="text-primary text-4xl" />,
+    title: "Managing Diabetes: Essential Tips for Daily Control",
+    excerpt:
+      "Learn practical steps to manage your blood sugar levels and stay ahead of diabetes complications.",
+    image: "/images/blogs/diabetes.jpg",
+    date: "May 15, 2025",
+    slug: "diabetes-tips",
   },
   {
     id: 3,
-    title: "Regular Exercise",
-    description:
-      "Engage in at least 30 minutes of physical activity most days of the week.",
-    icon: <FaRunning className="text-primary text-4xl" />,
+    title: "Why Hydration is More Important Than You Think",
+    excerpt:
+      "Explore the role of water in your health and how dehydration can silently affect your wellbeing.",
+    image: "/images/blogs/hydration.jpg",
+    date: "May 10, 2025",
+    slug: "importance-of-hydration",
   },
   {
     id: 4,
-    title: "Adequate Sleep",
-    description:
-      "Ensure 7-9 hours of quality sleep to help your body recover and rejuvenate.",
-    icon: <FaBed className="text-primary text-4xl" />,
-  },
-  {
-    id: 5,
-    title: "Manage Stress",
-    description:
-      "Practice relaxation techniques like meditation, yoga, or deep breathing to reduce stress.",
-    icon: <FaSmile className="text-primary text-4xl" />,
+    title: "Common Cold vs Flu: Know the Difference",
+    excerpt:
+      "Symptoms overlap but knowing what you're dealing with helps you treat it better. Here's how to spot the difference.",
+    image: "/images/blogs/cold-vs-flu.jpg",
+    date: "May 5, 2025",
+    slug: "cold-vs-flu",
   },
 ];
 
-export default function HealthTips() {
+export default function BlogPage() {
   return (
-    <section className="bg-gray-50 py-14 px-6 md:px-12 lg:px-20 min-h-screen">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-12 text-center">
-          Health Tips for a Better Life
-        </h2>
+    <section className="w-full py-12 px-4 md:px-10 bg-white">
+      <div className="max-w-6xl mx-auto">
+        {/* Page Header */}
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-gray-800 mb-3">
+            Health Tips & Articles
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Expert-written insights on health, medicine, wellness, and more — to
+            keep you informed and empowered.
+          </p>
+        </div>
 
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {tips.map(({ id, title, description, icon }) => (
-            <article
-              key={id}
-              className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center"
+        {/* Blog Grid */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {blogPosts.map((blog) => (
+            <div
+              key={blog.id}
+              className="bg-white border rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden"
             >
-              <div className="mb-5">{icon}</div>
-              <h3 className="text-2xl font-semibold mb-3 text-gray-800">
-                {title}
-              </h3>
-              <p className="text-gray-600 leading-relaxed">{description}</p>
-            </article>
+              <Image
+                src={blog.image}
+                alt={blog.title}
+                width={400}
+                height={200}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-5">
+                <div className="flex items-center text-sm text-muted-foreground mb-2 gap-2">
+                  <CalendarDays className="w-4 h-4" />
+                  {blog.date}
+                </div>
+                <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                  {blog.title}
+                </h2>
+                <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                  {blog.excerpt}
+                </p>
+                <Button variant="link" className="px-0 text-primary" asChild>
+                  <Link href={`/blogs/${blog.slug}`}>Read More</Link>
+                </Button>
+              </div>
+            </div>
           ))}
         </div>
       </div>
