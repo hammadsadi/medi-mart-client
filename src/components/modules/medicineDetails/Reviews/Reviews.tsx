@@ -1,14 +1,18 @@
-import React from 'react'
-import ReviewsItem from './reviewsItem/ReviewsItem'
+import React from "react";
+import ReviewsItem from "./reviewsItem/ReviewsItem";
 import CreateReview from "./createReview/CreateReview";
 import { getSingleMedicinesReviews } from "@/services/ReviewServices";
 import { TReview } from "@/types/reviews";
+import { ReviewSummary } from "./ReviewSummary";
 
 const Reviews = async ({ medicineId }: { medicineId: string }) => {
   const { data: reviewsData } = await getSingleMedicinesReviews(medicineId);
   return (
     <div className="max-w-lg mt-6">
-      <div className="flex justify-around mb-4">
+      <div>
+        <ReviewSummary reviews={reviewsData} />
+      </div>
+      <div className="flex justify-around my-4">
         <h4 className="font-bold">Reviews ( {reviewsData?.length} )</h4>
         <CreateReview />
       </div>
@@ -28,4 +32,4 @@ const Reviews = async ({ medicineId }: { medicineId: string }) => {
   );
 };
 
-export default Reviews
+export default Reviews;

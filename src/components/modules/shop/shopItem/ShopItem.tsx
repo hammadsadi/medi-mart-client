@@ -1,88 +1,102 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 import { addToCart } from "@/redux/features/cart/cartSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { getSingleMedicinesReviews } from "@/services/ReviewServices";
 import { TMedicine } from "@/types/medicines.types";
-import { FileText, MoveRight, Stethoscope } from "lucide-react";
+import { TReview } from "@/types/reviews";
+import { getAverageRating } from "@/utils/getAverageRating";
+import { FileText, MoveRight, Star, Stethoscope } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const ShopItem = ({ medicine }: { medicine: TMedicine }) => {
   const dispatch = useAppDispatch();
+  const [medicinesReviewsList, setMedicinesReviewsList] = useState<TReview[]>(
+    []
+  );
 
-  // Handle Add to cart
-  const handleAddToCart = (medicineData: TMedicine) => {
-    dispatch(addToCart(medicineData));
-  };
+  useEffect(() => {
+    const getReviews = async () => {
+      const { data: reviewsData } = await getSingleMedicinesReviews(
+        medicine?._id
+      );
+      setMedicinesReviewsList(reviewsData);
+    };
+    getReviews();
+  }, [medicine?._id]);
+
+  const averageRating = getAverageRating(medicinesReviewsList);
+
   return (
-    <div className="block rounded-lg p-4 bg-slate-50 shadow-xs shadow-indigo-100">
-      <Image
-        width={200}
-        height={200}
-        src={medicine?.imageUrl}
-        className="h-56 w-full rounded-md object-cover"
-        alt={medicine.name}
-      />
-      <div className="mt-2">
-        <dl>
-          <div>
-            <dt className="sr-only">Price</dt>
+    <div className="block rounded-2xl p-4 bg-white shadow-sm hover:shadow-md transition duration-200 border">
+      {/* Image */}
+      <div className="relative w-full h-56 mb-4">
+        <Image
+          src={
+            medicine?.imageUrl ||
+            "https://res.cloudinary.com/dro1r3fxd/image/upload/v1748098603/no-image-sadipng_p01msq.png"
+          }
+          alt={medicine.name}
+          fill
+          className="rounded-xl object-cover"
+        />
+      </div>
 
-            <dd className="text-sm text-gray-600">
-              {currencyFormatter(medicine?.price)}
-            </dd>
-          </div>
+      {/* Basic Info */}
+      <div className="space-y-1 mb-3">
+        <h3 className="text-lg font-semibold text-gray-800 truncate">
+          {medicine?.name}
+        </h3>
+        <p className="text-primary font-medium text-sm">
+          {currencyFormatter(medicine?.price)}
+        </p>
 
-          <div>
-            <dt className="sr-only">Medicne Name</dt>
-
-            <dd className="font-medium">{medicine?.name?.slice(0, 40)}</dd>
-          </div>
-        </dl>
-
-        <div className="mt-6 flex items-center gap-3 text-xs">
-          <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-            <Stethoscope className="size-5 text-primary" />
-
-            <div className="mt-1.5 sm:mt-0">
-              <p className="text-gray-500">Category</p>
-
-              <p className="font-medium">{medicine?.category?.slice(0, 20)}</p>
-            </div>
-          </div>
-
-          <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-            <FileText className="size-5 text-primary" />
-
-            <div className="mt-1.5 sm:mt-0">
-              <p className="text-gray-500">Prescription</p>
-
-              <p className="font-medium">
-                {medicine?.prescriptionRequired === true ? "Yes" : "No"}
-              </p>
-            </div>
-          </div>
-
-          <Link
-            href={`medicine/${medicine?._id}`}
-            className=" hover:text-primary sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2"
-          >
-            <div className="mt-1.5 sm:mt-0">
-              <p className="">Details</p>
-            </div>
-            <MoveRight className="size-5" />
-          </Link>
+        {/* Ratings */}
+        <div className="flex items-center gap-1 text-yellow-500 text-sm">
+          <Star className="w-4 h-4 fill-yellow-400" />
+          <span className="font-medium">{averageRating}</span>
+          <span className="text-gray-400">
+            ({medicinesReviewsList?.length})
+          </span>
         </div>
-        <div className="mt-3">
-          <Button
-            onClick={() => handleAddToCart(medicine)}
-            size="sm"
-            className="w-full"
-          >
-            Add To cart
-          </Button>
+      </div>
+
+      {/* Meta Info */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-sm text-gray-600 mb-4">
+        <div className="flex items-center gap-2">
+          <Stethoscope className="w-4 h-4 text-primary" />
+          <span>{medicine?.category}</span>
         </div>
+        <div className="flex items-center gap-2">
+          <FileText className="w-4 h-4 text-primary" />
+          <span>
+            {medicine?.prescriptionRequired
+              ? "Prescription Required"
+              : "No Prescription"}
+          </span>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div className="flex justify-between items-center">
+        <Link
+          href={`/medicine/${medicine?._id}`}
+          className="inline-flex items-center gap-1 text-sm text-primary font-medium hover:underline"
+        >
+          Details <MoveRight className="w-4 h-4" />
+        </Link>
+
+        <Button
+          onClick={() => dispatch(addToCart(medicine))}
+          size="sm"
+          className="text-sm px-4 py-1"
+        >
+          Add to Cart
+        </Button>
       </div>
     </div>
   );

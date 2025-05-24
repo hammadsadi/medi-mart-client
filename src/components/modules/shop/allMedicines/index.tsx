@@ -7,7 +7,6 @@ import ShopItem from "../shopItem/ShopItem";
 import ShopItemSkeleton from "../shopItem/ShopItemSkeleton";
 import { useSearchParams } from "next/navigation";
 import Pagination from "../../shared/Pagination/Pagination";
-import { set } from "date-fns";
 
 const AllMedicines = () => {
   const [medicines, setMedicines] = useState<TMedicine[]>([]);

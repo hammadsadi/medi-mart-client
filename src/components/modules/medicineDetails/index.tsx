@@ -6,6 +6,7 @@ import { TMedicine } from "@/types/medicines.types";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 import DetailsAction from "./detailsAction/DetailsAction";
 import { getSingleMedicinesReviews } from "@/services/ReviewServices";
+import ReviewAverage from "../shared/ReviewAverage/ReviewAverage";
 
 const MedicineDetails = async ({
   medicineInfo,
@@ -36,10 +37,11 @@ const MedicineDetails = async ({
             <h3>Price: {currencyFormatter(medicineInfo?.price)}</h3>
           </div>
           <div className="flex items-center gap-4 my-5 text-gray-500 text-xs">
-            <p className="rounded-full px-4 py-1 bg-gray-100 flex items-center justify-center gap-1">
+            {/* <p className="rounded-full px-4 py-1 bg-gray-100 flex items-center justify-center gap-1">
               <Star className="w-4 h-4" fill="orange" stroke="orange" />
               Ratings ( {reviewsData?.length || 0} )
-            </p>
+            </p> */}
+            <ReviewAverage reviews={reviewsData} />
             <p className="rounded-full px-4 py-1 bg-gray-100">
               Stock: {medicineInfo?.stock}
             </p>
