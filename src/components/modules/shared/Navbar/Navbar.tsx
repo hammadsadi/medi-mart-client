@@ -15,17 +15,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@/context/UserContext";
 import { logOutUser } from "@/services/AuthServices";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { protectedRoutes } from "@/constants";
 import { useAppSelector } from "@/redux/hooks";
 import { cartMedicineSelector } from "@/redux/features/cart/cartSlice";
 
-export default function Navbar() {
+export default function Navbar({ medicineCat }: { medicineCat: string[] }) {
   const { user, setIsLoading } = useUser();
   const pathname = usePathname();
   const router = useRouter();
   const medicinesAll = useAppSelector(cartMedicineSelector);
-
+  const searchParams = useSearchParams();
   const handleLogout = async () => {
     await logOutUser();
     setIsLoading(true);
@@ -38,6 +38,13 @@ export default function Navbar() {
   const isActive = (path: string, exact = false) => {
     if (exact) return pathname === path;
     return pathname.startsWith(path);
+  };
+
+  // Handle Filter
+  const handleSearchQuery = (query: string, value: string | number) => {
+    const params = new URLSearchParams();
+    params.set(query, value.toString());
+    router.push(`/shop?${params.toString()}`, { scroll: false });
   };
 
   return (
@@ -77,49 +84,60 @@ export default function Navbar() {
                 <div className="absolute left-0 top-full w-[600px] p-6 bg-white shadow-lg border opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-2 transform transition-all duration-300 ease-in-out grid grid-cols-3 gap-6 z-50">
                   <div>
                     <h4 className="font-semibold mb-2">Categories</h4>
-                    <ul className="space-y-1 text-sm text-gray-700">
-                      <li>
-                        <Link href="/shop/pain-relief">Pain Relief</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/diabetes">Diabetes</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/heart">Heart</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/supplements">Supplements</Link>
-                      </li>
+                    <ul className="space-y-2 text-sm text-gray-700 rounded-md ">
+                      {medicineCat?.map((category, idx) => (
+                        <li
+                          key={idx}
+                          onClick={() =>
+                            handleSearchQuery("category", category)
+                          }
+                          className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer"
+                        >
+                          <Link className="" href="/shop/pain-relief">
+                            {category}
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-2">Brands</h4>
-                    <ul className="space-y-1 text-sm text-gray-700">
-                      <li>
-                        <Link href="/shop/napa">Napa</Link>
+                    <h4 className="font-semibold mb-2">Medicines</h4>
+                    <ul className="space-y-2 text-sm text-gray-700">
+                      <li className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer">
+                        <Link className="hover:text-primary" href="/shop/napa">
+                          Without Prescription
+                        </Link>
                       </li>
-                      <li>
-                        <Link href="/shop/seclo">Seclo</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/omeprazole">Omeprazole</Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/ors">ORS</Link>
+                      <li className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer">
+                        <Link className="hover:text-primary" href="/shop/seclo">
+                          With Prescription
+                        </Link>
                       </li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">More</h4>
                     <ul className="space-y-1 text-sm text-gray-700">
-                      <li>
-                        <Link href="/offers">Offers</Link>
+                      <li className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer">
+                        <Link className="hover:text-primary" href="/offers">
+                          Offers
+                        </Link>
                       </li>
-                      <li>
-                        <Link href="/best-sellers">Best Sellers</Link>
+                      <li className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer">
+                        <Link
+                          className="hover:text-primary"
+                          href="/best-sellers"
+                        >
+                          Best Sellers
+                        </Link>
                       </li>
-                      <li>
-                        <Link href="/new-arrivals">New Arrivals</Link>
+                      <li className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer">
+                        <Link
+                          className="hover:text-primary"
+                          href="/new-arrivals"
+                        >
+                          New Arrivals
+                        </Link>
                       </li>
                     </ul>
                   </div>
