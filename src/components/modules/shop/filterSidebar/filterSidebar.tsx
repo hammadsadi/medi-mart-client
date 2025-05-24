@@ -6,14 +6,13 @@ import { Button } from "@/components/ui/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { X, Filter } from "lucide-react";
+import { getAllMedicineCategories } from "@/services/Medicine";
+import { set } from "date-fns";
 
-export default function FilterSidebar({
-  medicineCat,
-}: {
-  medicineCat: string[];
-}) {
+export default function FilterSidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showFilterButton, setShowFilterButton] = useState(true);
+  const [categoryList, setCategoryList] = useState<string[]>([]);
   const [medicinePrice, setMedicinePrice] = useState([0]);
   const router = useRouter();
   const pathname = usePathname();
@@ -38,6 +37,15 @@ export default function FilterSidebar({
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  //  Get All Category
+  useEffect(() => {
+    const getCat = async () => {
+      const { data } = await getAllMedicineCategories();
+      setCategoryList(data);
+    };
+    getCat();
   }, []);
   return (
     <>
@@ -100,7 +108,7 @@ export default function FilterSidebar({
         <div className="mb-6">
           <h2 className="text-lg font-semibold mb-4">Medicine Category</h2>
           <RadioGroup className="space-y-2">
-            {medicineCat?.map((item, idx) => (
+            {categoryList?.map((item, idx) => (
               <div key={idx} className="flex items-center space-x-2">
                 <RadioGroupItem
                   value={item}

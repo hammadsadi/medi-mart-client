@@ -28,8 +28,8 @@ export const createMedicine = async (data: any) => {
 // Get All Medicine
 export const getAllMedicines = async (
   page: number | string | undefined,
-  searchTerm: string,
-  query: { [key: string]: string | string[] | undefined }
+  searchTerm?: string | null,
+  query?: { [key: string]: string | string[] | undefined | null }
 ) => {
   const params = new URLSearchParams();
   if (query?.price) {
@@ -99,7 +99,6 @@ export const getAllMedicineCategories = async () => {
     return Error(error);
   }
 };
-
 
 // Update Medicine
 export const updateMedicine = async (data: any, medicineId: string) => {
