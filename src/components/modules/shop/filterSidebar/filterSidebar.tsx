@@ -113,7 +113,7 @@ export default function FilterSidebar({
           </RadioGroup>
         </div>
 
-        {/* Brands */}
+        {/* Prescription Required */}
         <div className="mb-6">
           <h2 className="text-lg font-semibold mb-4">Prescription Required</h2>
           <RadioGroup className="space-y-2">

@@ -93,9 +93,7 @@ export default function Navbar({ medicineCat }: { medicineCat: string[] }) {
                           }
                           className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer"
                         >
-                          <Link className="" href="/shop/pain-relief">
-                            {category}
-                          </Link>
+                          <span className="">{category}</span>
                         </li>
                       ))}
                     </ul>
@@ -103,15 +101,25 @@ export default function Navbar({ medicineCat }: { medicineCat: string[] }) {
                   <div>
                     <h4 className="font-semibold mb-2">Medicines</h4>
                     <ul className="space-y-2 text-sm text-gray-700">
-                      <li className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer">
-                        <Link className="hover:text-primary" href="/shop/napa">
+                      <li
+                        onClick={() =>
+                          handleSearchQuery("prescriptionRequired", "false")
+                        }
+                        className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer"
+                      >
+                        <span className="hover:text-primary">
                           Without Prescription
-                        </Link>
+                        </span>
                       </li>
-                      <li className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer">
-                        <Link className="hover:text-primary" href="/shop/seclo">
+                      <li
+                        onClick={() =>
+                          handleSearchQuery("prescriptionRequired", "true")
+                        }
+                        className="w-full hover:bg-gray-100 py-1 px-2 hover:text-primary cursor-pointer"
+                      >
+                        <span className="hover:text-primary">
                           With Prescription
-                        </Link>
+                        </span>
                       </li>
                     </ul>
                   </div>
