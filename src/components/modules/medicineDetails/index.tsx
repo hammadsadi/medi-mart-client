@@ -7,6 +7,7 @@ import { currencyFormatter } from "@/lib/currencyFormatter";
 import DetailsAction from "./detailsAction/DetailsAction";
 import { getSingleMedicinesReviews } from "@/services/ReviewServices";
 import ReviewAverage from "../shared/ReviewAverage/ReviewAverage";
+import MedicineSuggestion from "./MedicineSuggestion/MedicineSuggestion";
 
 const MedicineDetails = async ({
   medicineInfo,
@@ -56,6 +57,11 @@ const MedicineDetails = async ({
       </div>
       <div>
         <MedicineDetailsTabs medicineInfo={medicineInfo} />
+      </div>
+      <div>
+        <MedicineSuggestion
+          prescriptionStatus={medicineInfo?.prescriptionRequired}
+        />
       </div>
     </>
   );

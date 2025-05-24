@@ -69,6 +69,23 @@ export const getAllMedicines = async (
   }
 };
 
+// Get Suggested Medicine  http://localhost:3000/shop?prescriptionRequired=true
+export const getSuggestedMedicines = async (prescriptionRequired: boolean) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/medicine?prescriptionRequired=${prescriptionRequired}`,
+      {
+        next: {
+          tags: ["MEDICINE"],
+        },
+      }
+    );
+
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
 // Get Single Medicine
 export const getSingleMedicines = async (id: string) => {
   try {
