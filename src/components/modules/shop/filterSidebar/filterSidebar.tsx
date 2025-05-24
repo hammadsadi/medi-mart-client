@@ -8,6 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { X, Filter } from "lucide-react";
 import { getAllMedicineCategories } from "@/services/Medicine";
 import { set } from "date-fns";
+import { Input } from "@/components/ui/input";
 
 export default function FilterSidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +85,13 @@ export default function FilterSidebar() {
             Clear Filters
           </Button>
         </div>
-
+        {/* Search Medicine */}
+        <div className="mb-6">
+          <Input
+            placeholder="Search Medicine"
+            onChange={(e) => handleSearchQuery("searchTerm", e.target.value)}
+          />
+        </div>
         {/* Filter by Price */}
         <div className="mb-6">
           <h2 className="text-lg font-semibold mb-4">Price</h2>

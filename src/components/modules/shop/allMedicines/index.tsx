@@ -22,8 +22,9 @@ const AllMedicines = () => {
   const prescriptionRequired = searchParams.get("prescriptionRequired");
   const category = searchParams.get("category");
   const price = searchParams.get("price");
+  const searchTerm = searchParams.get("searchTerm");
   const page = Number(searchParams.get("page"));
-
+  console.log(searchTerm);
   useEffect(() => {
     const getMedicines = async () => {
       setLoading(true);
@@ -34,7 +35,7 @@ const AllMedicines = () => {
           price,
         };
 
-        const { data } = await getAllMedicines(page, null, query);
+        const { data } = await getAllMedicines(page, searchTerm, query);
         setMetaList(data?.meta);
         setMedicines(data?.data || []);
       } catch (error) {
@@ -45,7 +46,7 @@ const AllMedicines = () => {
     };
 
     getMedicines();
-  }, [prescriptionRequired, category, price, page]);
+  }, [prescriptionRequired, category, price, page, searchTerm]);
 
   return (
     <div>
