@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   ListOrdered,
   User,
+  Locate,
 } from "lucide-react";
 
 import {
@@ -85,11 +86,18 @@ const data = {
   ],
   Customer: [
     {
+      title: "Track Order",
+      url: "/track-order",
+      icon: Locate,
+      isActive: true,
+    },
+    {
       title: "Order History",
-      url: "/order-history/",
+      url: "/orders-history",
       icon: ListOrdered,
       isActive: true,
     },
+
     {
       title: "Profile",
       url: "/profile",

@@ -6,7 +6,13 @@ type Role = keyof typeof roleBasedRoutes;
 const authRoututes = ["/login", "/register"];
 const sharedRoutes = [/^\/dashboard\/profile/];
 const roleBasedRoutes = {
-  Customer: [/^\/user/, /^\/profile/, /^\/checkout/],
+  Customer: [
+    /^\/user/,
+    /^\/profile/,
+    /^\/checkout/,
+    /^\/orders-history/,
+    /^\/track-order/,
+  ],
   Admin: [/^\/admin/, /^\/profile/],
 };
 export const middleware = async (request: NextRequest) => {
@@ -47,6 +53,8 @@ export const config = {
     "/register",
     "/profile",
     "/checkout",
+    "/orders-history",
+    "/track-order",
     "/admin",
     "/admin/:page",
     "/user/:page",

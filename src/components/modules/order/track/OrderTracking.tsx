@@ -2,12 +2,15 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { MMTable } from "@/components/ui/core/MMTable";
 import { TOrderInfo } from "@/types/order.types";
-
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
+import Stepper from "../stepper/Stepper";
+import { MyModal } from "../../shared/MyModal/MyModal";
 
-const ManageOrders = ({ myOrders }: { myOrders: TOrderInfo[] }) => {
+const OrderTracking = ({ myOrders }: { myOrders: TOrderInfo[] }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const columns: ColumnDef<TOrderInfo>[] = [
     {
       accessorKey: "medicines",
@@ -64,12 +67,21 @@ const ManageOrders = ({ myOrders }: { myOrders: TOrderInfo[] }) => {
     },
     {
       accessorKey: "orderStatus",
-      header: "Delivery Status",
+      header: "Action",
       cell: ({ row }) => {
         return (
           <>
+            <MyModal
+              modalTitle="Your Order Status is...."
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+            >
+              <Stepper status={row.original?.orderStatus} />
+            </MyModal>
             <span>
-              <Badge>{row.original?.orderStatus}</Badge>
+              <Button size="sm" onClick={() => setIsOpen(true)}>
+                Check Progress
+              </Button>
             </span>
           </>
         );
@@ -79,11 +91,12 @@ const ManageOrders = ({ myOrders }: { myOrders: TOrderInfo[] }) => {
   return (
     <div>
       <div className="flex items-center justify-between py-5">
-        <h1 className="text-xl font-bold">Orders History</h1>
+        <h1 className="text-xl font-bold">Your Orders</h1>
       </div>
       <MMTable columns={columns} data={myOrders || []} />
+      {/* <TablePagination totalPage={meta?.totalPage} /> */}
     </div>
   );
 };
 
-export default ManageOrders;
+export default OrderTracking;

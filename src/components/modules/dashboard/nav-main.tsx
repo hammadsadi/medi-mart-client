@@ -37,7 +37,8 @@ export function NavMain({
 }) {
   const pathname = usePathname();
 
-  const isActive = (url: string) => pathname.startsWith(url);
+  const isExactActive = (url: string) =>
+    pathname === url || pathname === `${url}/`;
 
   return (
     <SidebarGroup>
@@ -47,18 +48,28 @@ export function NavMain({
 
       <SidebarMenu>
         {items.map((item) => {
-          const itemIsActive = isActive(item.url);
           const hasChildren = item.items?.length;
 
+          // Check if any sub-item is active
+          const isAnyChildActive = item.items?.some((sub) =>
+            isExactActive(sub.url)
+          );
+          // Parent is active only if no child is active and current path matches
+          const isParentActive = isExactActive(item.url) && !isAnyChildActive;
+
           return (
-            <Collapsible key={item.title} asChild defaultOpen={itemIsActive}>
+            <Collapsible
+              key={item.title}
+              asChild
+              defaultOpen={isParentActive || isAnyChildActive}
+            >
               <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip={item.title}>
                   <Link
                     href={item.url}
                     className={cn(
                       "flex items-center gap-2 px-3 py-2 rounded-lg transition-colors",
-                      itemIsActive
+                      isParentActive
                         ? "bg-primary text-white"
                         : "text-muted-foreground hover:bg-muted/40"
                     )}
@@ -68,7 +79,7 @@ export function NavMain({
                   </Link>
                 </SidebarMenuButton>
 
-                {hasChildren ? (
+                {hasChildren && (
                   <>
                     <CollapsibleTrigger asChild>
                       <SidebarMenuAction className="transition-transform data-[state=open]:rotate-90">
@@ -79,8 +90,8 @@ export function NavMain({
 
                     <CollapsibleContent className="overflow-hidden transition-all data-[state=open]:animate-slide-down data-[state=closed]:animate-slide-up">
                       <SidebarMenuSub className="ml-2 border-l border-muted pl-3">
-                        {item.items?.map((subItem) => {
-                          const subItemIsActive = isActive(subItem.url);
+                        {item?.items?.map((subItem) => {
+                          const isSubItemActive = isExactActive(subItem.url);
 
                           return (
                             <SidebarMenuSubItem key={subItem.title}>
@@ -89,7 +100,7 @@ export function NavMain({
                                   href={subItem.url}
                                   className={cn(
                                     "block px-2 py-1.5 text-sm rounded-md transition-colors",
-                                    subItemIsActive
+                                    isSubItemActive
                                       ? "bg-primary text-white"
                                       : "text-muted-foreground hover:bg-muted/30"
                                   )}
@@ -103,7 +114,7 @@ export function NavMain({
                       </SidebarMenuSub>
                     </CollapsibleContent>
                   </>
-                ) : null}
+                )}
               </SidebarMenuItem>
             </Collapsible>
           );
