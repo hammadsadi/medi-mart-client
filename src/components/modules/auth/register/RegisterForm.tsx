@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,69 +15,71 @@ import Link from "next/link";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { registerValidationSchema } from "./registerValidationSchema";
-// import { zodResolver } from "@hookform/resolvers/zod";
-import { zodResolver } from '@hookform/resolvers/zod'
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/context/UserContext";
+
 const RegisterForm = () => {
   const { setIsLoading } = useUser();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirectPath");
-  const router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(registerValidationSchema),
   });
+
   const {
     formState: { isSubmitting },
   } = form;
-  //   const { setIsLoading } = useUser();
-  // Form Value Watch
+
   const password = form.watch("password");
   const confirmPassword = form.watch("confirmPassword");
 
-  // Register Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
     try {
-      // Form Data Send to Server action
       const res = await userRegister(data);
       setIsLoading(true);
-      // Toast Handle
       if (res?.success) {
         toast.success(res?.message);
-        if (redirect) {
-          router.push(redirect);
-        } else {
-          router.push("/");
-        }
+        router.push(redirect || "/");
       } else {
         toast.error(res?.message);
       }
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong!");
     }
   };
+
   return (
-    <div className="w-full min-h-screen flex justify-center items-center">
-      <div className="max-w-md w-full bg-white border p-7 md:p-10 rounded my-10">
-        <div className="flex gap-2 border-b pb-3 mb-6">
-          {/* <ShopZenLogo /> */}
-          <div className="space-y-1">
-            <h2 className="font-bold text-lg md:text-2xl">Medi Mart</h2>
-            <p className="text-xs">Fillup This Form to Sign Up.</p>
-          </div>
+    <div className="min-h-screen w-full flex items-center justify-center bg-muted px-4">
+      <div className="w-full max-w-3xl bg-white border border-gray-200 shadow-md rounded-2xl p-6 sm:p-10">
+        <div className="mb-6 text-center">
+          <h2 className="text-2xl font-bold">Medi Mart</h2>
+          <p className="text-sm text-muted-foreground">
+            Fill out the form to create your account.
+          </p>
         </div>
+
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Full Name</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input
+                      {...field}
+                      value={field.value || ""}
+                      placeholder="Sadi Ahmed"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -89,7 +92,11 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input
+                      {...field}
+                      value={field.value || ""}
+                      placeholder="you@example.com"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -102,7 +109,45 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Phone</FormLabel>
                   <FormControl>
-                    <Input {...field} value={field.value || ""} />
+                    <Input
+                      {...field}
+                      value={field.value || ""}
+                      placeholder="01XXXXXXXXX"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      value={field.value || ""}
+                      placeholder="Dhaka"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem className="md:col-span-2">
+                  <FormLabel>Address</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      value={field.value || ""}
+                      placeholder="123/A, Street Name"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -138,7 +183,6 @@ const RegisterForm = () => {
                       value={field.value || ""}
                     />
                   </FormControl>
-
                   {confirmPassword && password !== confirmPassword ? (
                     <FormMessage>Password does not match</FormMessage>
                   ) : (
@@ -147,53 +191,31 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>City</FormLabel>
-                  <FormControl>
-                    <Input {...field} value={field.value || ""} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="address"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address</FormLabel>
-                  <FormControl>
-                    <Input {...field} value={field.value || ""} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <Button
-              disabled={!!confirmPassword && password !== confirmPassword}
-              type="submit"
-              className="w-full mt-2"
-            >
-              {isSubmitting ? (
-                <LoaderCircle className="animate-spin" />
-              ) : (
-                "Register"
-              )}
-              Register
-            </Button>
-            <p className="mt-2 text-center text-sm">
-              Already have an account?{" "}
-              <Link href="/login" className="font-bold hover:underline">
-                Sign In
-              </Link>
-            </p>
+            <div className="md:col-span-2">
+              <Button
+                type="submit"
+                disabled={!!confirmPassword && password !== confirmPassword}
+                className="w-full mt-2"
+              >
+                {isSubmitting ? (
+                  <LoaderCircle className="w-4 h-4 animate-spin" />
+                ) : (
+                  "Register"
+                )}
+              </Button>
+            </div>
           </form>
         </Form>
+
+        <p className="mt-6 text-center text-sm">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-primary font-semibold hover:underline"
+          >
+            Sign In
+          </Link>
+        </p>
       </div>
     </div>
   );
