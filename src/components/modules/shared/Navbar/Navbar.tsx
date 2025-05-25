@@ -285,10 +285,7 @@ export default function Navbar({ medicineCat }: { medicineCat: string[] }) {
                   {user.role === "Customer" && (
                     <>
                       <DropdownMenuItem>
-                        <Link href="/profile">Profile</Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href="/orders">Orders History</Link>
+                        <Link href="/profile">Dashboard</Link>
                       </DropdownMenuItem>
                     </>
                   )}

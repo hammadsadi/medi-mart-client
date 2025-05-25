@@ -7,6 +7,8 @@ import {
   LogsIcon,
   HandCoins,
   LayoutDashboard,
+  ListOrdered,
+  User,
 } from "lucide-react";
 
 import {
@@ -22,15 +24,12 @@ import {
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 import Link from "next/link";
+import { getCurrentUser } from "@/services/AuthServices";
+import { TUser } from "@/types/user.types";
 
 // This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
+  Admin: [
     {
       title: "Dashboard",
       url: "/admin/",
@@ -84,9 +83,36 @@ const data = {
       ],
     },
   ],
+  Customer: [
+    {
+      title: "Order History",
+      url: "/order-history/",
+      icon: ListOrdered,
+      isActive: true,
+    },
+    {
+      title: "Profile",
+      url: "/profile",
+      icon: User,
+      isActive: true,
+    },
+  ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [userInfo, setUserInfo] = React.useState<TUser | null>(null);
+  React.useEffect(() => {
+    const getCurrentUserInfo = async () => {
+      const res = await getCurrentUser();
+      setUserInfo(res);
+      console.log(res);
+    };
+    getCurrentUserInfo();
+  }, []);
+  const NavData = {
+    userInfo,
+    navMain: data[userInfo?.role as keyof typeof data] || [],
+  };
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -104,7 +130,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={NavData.navMain} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
