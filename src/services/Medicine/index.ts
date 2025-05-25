@@ -69,7 +69,28 @@ export const getAllMedicines = async (
   }
 };
 
-// Get Suggested Medicine  http://localhost:3000/shop?prescriptionRequired=true
+// Get Features Medicine
+export const getAllFeaturesMedicines = async () => {
+  const params = new URLSearchParams();
+
+  params.append("limit", "6");
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/medicine?${params.toString()}`,
+      {
+        next: {
+          tags: ["MEDICINE"],
+        },
+      }
+    );
+
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+// Get Suggested Medicine
 export const getSuggestedMedicines = async (prescriptionRequired: boolean) => {
   try {
     const res = await fetch(

@@ -7,20 +7,25 @@ import {
 import { ReactNode } from "react";
 
 interface IModalProps {
-  children:ReactNode;
-  modalTitle:string;
-  isOpen:boolean;
-  onClose:()=> void;
+  children: ReactNode;
+  modalTitle: string;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export function MyModal({ children, modalTitle, isOpen, onClose }: IModalProps) {
+export function MyModal({
+  children,
+  modalTitle,
+  isOpen,
+  onClose,
+}: IModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{modalTitle}</DialogTitle>
         </DialogHeader>
-        {children}
+        <div className="space-y-4">{children}</div>
       </DialogContent>
     </Dialog>
   );
