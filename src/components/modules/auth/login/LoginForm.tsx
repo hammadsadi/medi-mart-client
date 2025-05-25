@@ -19,6 +19,7 @@ import { userLogin } from "@/services/AuthServices";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useUser } from "@/context/UserContext";
+import { Badge } from "@/components/ui/badge";
 
 const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -35,30 +36,56 @@ const LoginForm = () => {
 
   // Register Form Handle
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    const userLoginLoading = toast.loading(" Processing...");
     try {
       // Form Data Send to Server action
       const res = await userLogin(data);
       setIsLoading(true);
       // Toast Handle
       if (res?.success) {
-        toast.success(res?.message);
+        toast.success(res?.message, { id: userLoginLoading });
         if (redirect) {
           router.push(redirect);
         } else {
           router.push("/");
         }
       } else {
-        toast.error(res?.message);
+        toast.error(res?.message, { id: userLoginLoading });
       }
     } catch (error) {
-      console.error(error);
+      toast.error("Something Went Wrong...!", { id: userLoginLoading });
     }
   };
 
+  // Handle Demo Admin
+  const handleDemoAdminLogin = async () => {
+    const userLoginLoading = toast.loading(" Processing...");
+    const data = {
+      identifier: process.env.NEXT_PUBLIC_DEMO_ADMIN_EMAIL,
+      password: process.env.NEXT_PUBLIC_DEMO_ADMIN_PASSWORD,
+    };
+    try {
+      // Form Data Send to Server action
+      const res = await userLogin(data);
+      setIsLoading(true);
+      // Toast Handle
+      if (res?.success) {
+        toast.success(res?.message, { id: userLoginLoading });
+        if (redirect) {
+          router.push(redirect);
+        } else {
+          router.push("/");
+        }
+      } else {
+        toast.error(res?.message, { id: userLoginLoading });
+      }
+    } catch (error) {
+      toast.error("Something Went Wrong...!", { id: userLoginLoading });
+    }
+  };
   return (
     <div className="w-full min-h-screen flex justify-center items-center">
-      <div className="max-w-md w-full bg-white border p-7 md:p-10 rounded">
+      <div className="max-w-md w-full bg-white border p-7 md:p-10 rounded relative">
         <div className="flex gap-2 border-b pb-3 mb-6">
           {/* <ShopZenLogo /> */}
           <div className="space-y-1">
@@ -114,6 +141,12 @@ const LoginForm = () => {
             </p>
           </form>
         </Form>
+        <Badge
+          onClick={handleDemoAdminLogin}
+          className="absolute top-1 right-1 cursor-pointer"
+        >
+          Login as Demo Admin
+        </Badge>
       </div>
     </div>
   );
