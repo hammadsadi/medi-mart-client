@@ -7,6 +7,7 @@ import { getAllFeaturesMedicines, getAllMedicines } from "@/services/Medicine";
 import { getAllReviews } from "@/services/ReviewServices";
 import OfferSection from "./OfferSection/OfferSection";
 import BlogSection from "./BlogSection/BlogSection";
+import CategorySection from "./CategorySection/CategorySection";
 
 const HomePageManage = async ({ searchParams }: { searchParams: any }) => {
   const { query } = await searchParams;
@@ -18,6 +19,7 @@ const HomePageManage = async ({ searchParams }: { searchParams: any }) => {
     <div>
       <Banner />
       <FeaturesSection allMedicineInfo={allFeaturesMedicines?.data} />
+      <CategorySection />
       <OfferSection />
       <CustomerReviews allReviews={allReviews} />
       <BlogSection />
