@@ -32,7 +32,7 @@ import { TUser } from "@/types/user.types";
 const data = {
   Admin: [
     {
-      title: "Dashboard",
+      title: "Overview",
       url: "/admin/",
       icon: LayoutDashboard,
       isActive: true,
