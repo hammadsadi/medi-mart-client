@@ -45,12 +45,12 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-2">Shop</h3>
             <ul className="space-y-1 text-sm">
               <li>
-                <Link href="/medicines" className="hover:text-white">
+                <Link href="/shop" className="hover:text-white">
                   Medicines
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="hover:text-white">
+                <Link href="/shop" className="hover:text-white">
                   Categories
                 </Link>
               </li>
@@ -76,7 +76,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                Phone:{" "}
+                Phone:
                 <a href="tel:+880123456789" className="hover:text-white">
                   +880 1234-56789
                 </a>
@@ -119,9 +119,6 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} MediMart. All rights reserved.
         </div>
       </MyContainer>
-      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-       
-      </div> */}
     </footer>
   );
 }

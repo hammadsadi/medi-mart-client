@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import doctorsvg from "@/assets/svg/undraw_doctor_aum1.svg";
 import { useState } from "react";
 import Link from "next/link";
+import MyContainer from "@/components/modules/shared/MyContainer/MyContainer";
 
 const specialties = [
   "General Physician",
@@ -47,8 +48,8 @@ export default function ConsultDoctor() {
   };
 
   return (
-    <section className="w-full bg-white py-10 px-4 md:px-8 lg:px-16">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <MyContainer>
+      <div className=" grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left Content */}
         <div className="space-y-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
@@ -157,6 +158,6 @@ export default function ConsultDoctor() {
           </div>
         </div>
       </div>
-    </section>
+    </MyContainer>
   );
 }

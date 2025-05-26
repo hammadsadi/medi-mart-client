@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MyContainer from "@/components/modules/shared/MyContainer/MyContainer";
+import SectionTitle from "@/components/modules/shared/SectionTitle/SectionTitle";
 
 const blogPosts = [
   {
@@ -46,52 +48,46 @@ const blogPosts = [
 
 export default function BlogPage() {
   return (
-    <section className="w-full py-12 px-4 md:px-10 bg-white">
-      <div className="max-w-6xl mx-auto">
-        {/* Page Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-800 mb-3">
-            Health Tips & Articles
-          </h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Expert-written insights on health, medicine, wellness, and more — to
-            keep you informed and empowered.
-          </p>
-        </div>
+    <MyContainer>
+      {/* Page Header */}
 
-        {/* Blog Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {blogPosts.map((blog) => (
-            <div
-              key={blog.id}
-              className="bg-white border rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden"
-            >
-              <Image
-                src={blog.image}
-                alt={blog.title}
-                width={400}
-                height={200}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-5">
-                <div className="flex items-center text-sm text-muted-foreground mb-2 gap-2">
-                  <CalendarDays className="w-4 h-4" />
-                  {blog.date}
-                </div>
-                <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
-                  {blog.title}
-                </h2>
-                <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-                  {blog.excerpt}
-                </p>
-                <Button variant="link" className="px-0 text-primary" asChild>
-                  <Link href={`/blogs/${blog.slug}`}>Read More</Link>
-                </Button>
+      <SectionTitle
+        sectionSubTitle="Expert-written insights on health, medicine, wellness, and more — to
+          keep you informed and empowered."
+        sectionTitle=" Health Tips & Articles"
+      />
+      {/* Blog Grid */}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {blogPosts.map((blog) => (
+          <div
+            key={blog.id}
+            className="bg-white border rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden"
+          >
+            <Image
+              src={blog.image}
+              alt={blog.title}
+              width={400}
+              height={200}
+              className="w-full h-48 object-cover"
+            />
+            <div className="p-5">
+              <div className="flex items-center text-sm text-muted-foreground mb-2 gap-2">
+                <CalendarDays className="w-4 h-4" />
+                {blog.date}
               </div>
+              <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                {blog.title}
+              </h2>
+              <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                {blog.excerpt}
+              </p>
+              <Button variant="link" className="px-0 text-primary" asChild>
+                <Link href={`/blogs/${blog.slug}`}>Read More</Link>
+              </Button>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </MyContainer>
   );
 }

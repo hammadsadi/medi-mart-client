@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 import { toast } from "sonner";
+import MyContainer from "@/components/modules/shared/MyContainer/MyContainer";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name should be at least 2 characters"),
@@ -46,7 +47,7 @@ export default function ContactUs() {
   }
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-20">
+    <MyContainer>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
         {/* Contact Info */}
         <div className="space-y-8">
@@ -167,6 +168,6 @@ export default function ContactUs() {
           </Button>
         </form>
       </div>
-    </section>
+    </MyContainer>
   );
 }
