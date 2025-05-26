@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import logo from "@/assets/images/medi-mart.png";
 import {
   Users,
   BriefcaseMedicalIcon,
@@ -27,6 +28,8 @@ import { NavUser } from "./nav-user";
 import Link from "next/link";
 import { getCurrentUser } from "@/services/AuthServices";
 import { TUser } from "@/types/user.types";
+import Image from "next/image";
+import clsx from "clsx";
 
 // This is sample data.
 const data = {
@@ -115,6 +118,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [userInfo, setUserInfo] = React.useState<TUser | null>(null);
+  const [isCollapsed, setIsCollapsed] = React.useState(false);
   React.useEffect(() => {
     const getCurrentUserInfo = async () => {
       const res = await getCurrentUser();
@@ -133,22 +137,34 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href="/">
-                <div className="flex items-center justify-center"></div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <h2 className="font-bold text-xl">Medi Mart</h2>
+              <Link href="/" className="flex items-center space-x-2">
+                {/* Optional Logo Icon */}
+                <div className="flex items-center justify-center">
+                  <Image src={logo} alt="Logo" width={28} height={28} />
                 </div>
+                {/* Brand Name */}
+                {/* <div
+                  className={clsx(
+                    "grid text-left text-sm leading-tight transition-all duration-300",
+                    isCollapsed && "hidden"
+                  )}
+                >
+                  <h2 className="font-bold text-xl">Medi Mart</h2>
+                </div> */}
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent>
         <NavMain items={NavData.navMain} />
       </SidebarContent>
+
       <SidebarFooter>
         <NavUser />
       </SidebarFooter>
+
       <SidebarRail />
     </Sidebar>
   );
