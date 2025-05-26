@@ -36,7 +36,7 @@ interface IOverviewData {
   totalPendingPrescription: number;
 }
 
-const COLORS = ["#4f46e5", "#10b981", "#facc15", "#f97316"];
+const COLORS = ["#4f46e5", "#16a34a", "#facc15", "#f97316"];
 // const COLORS = ["#10b981", "#10b981", "#facc15", "#f97316"];
 
 export default function DashboardOverview() {
@@ -143,11 +143,11 @@ export default function DashboardOverview() {
                       contentStyle={{
                         backgroundColor: "#fff",
                         borderRadius: "0.5rem",
-                        borderColor: "#4f46e5",
+                        borderColor: "#16a34a",
                       }}
                     />
                     <Legend />
-                    <Bar dataKey="sales" fill="#10b981" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="sales" fill="#16a34a" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -192,7 +192,7 @@ export default function DashboardOverview() {
                       contentStyle={{
                         backgroundColor: "#fff",
                         borderRadius: "0.5rem",
-                        borderColor: "#4f46e5",
+                        borderColor: "#16a34a",
                       }}
                       formatter={(value) => [value, "Count"]}
                     />
