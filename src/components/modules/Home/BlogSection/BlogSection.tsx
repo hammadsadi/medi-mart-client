@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { CalendarDays, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MyContainer from "../../shared/MyContainer/MyContainer";
+import SectionTitle from "../../shared/SectionTitle/SectionTitle";
 
 const blogs = [
   {
@@ -38,16 +40,13 @@ const blogs = [
 
 export default function BlogSection() {
   return (
-    <section className="w-full bg-white py-12 px-4 md:px-10">
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-          Latest Health Tips & Articles
-        </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto mb-10">
-          Stay informed with expert insights on health, wellness, and medicine
-          curated by professionals.
-        </p>
-
+    <MyContainer>
+      <div className="">
+        <SectionTitle
+          sectionSubTitle="Stay informed with expert insights on health, wellness, and medicine
+          curated by professionals."
+          sectionTitle="Latest Health Tips & Articles"
+        />
         <div className="grid gap-6 md:grid-cols-3">
           {blogs.map((blog) => (
             <div
@@ -88,6 +87,6 @@ export default function BlogSection() {
           ))}
         </div>
       </div>
-    </section>
+    </MyContainer>
   );
 }
