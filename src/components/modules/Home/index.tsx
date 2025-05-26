@@ -3,30 +3,19 @@ import React, { useEffect, useState } from "react";
 import Banner from "./Banner/Banner";
 import FeaturesSection from "./Features";
 import CustomerReviews from "./CustomerReviews";
-import { getAllFeaturesMedicines } from "@/services/Medicine";
 import { getAllReviews } from "@/services/ReviewServices";
 import OfferSection from "./OfferSection/OfferSection";
 import BlogSection from "./BlogSection/BlogSection";
 import CategorySection from "./CategorySection/CategorySection";
 import WhyChooseUs from "./WhyChooseUs/WhyChooseUs";
 import LicensedBadgeSection from "./LicensedBadgeSection/LicensedBadgeSection";
-import { getAllCoupons } from "@/services/CouponServices";
 import { TReview } from "@/types/reviews";
-import { TMedicine } from "@/types/medicines.types";
 const HomePageManage = () => {
   const [allReviews, setAllReviews] = useState<TReview[] | []>([]);
-  const [allFeaturesMedicines, setAllFeaturesMedicines] = useState<
-    TMedicine[] | []
-  >([]);
 
   useEffect(() => {
     const getData = async () => {
-      const [AllFeaturesMedicines, AllReviews, AllCoupons] = await Promise.all([
-        getAllFeaturesMedicines(),
-        getAllReviews(),
-        getAllCoupons(),
-      ]);
-      setAllFeaturesMedicines(AllFeaturesMedicines.data?.data);
+      const [AllReviews] = await Promise.all([getAllReviews()]);
       setAllReviews(AllReviews.data);
     };
     getData();
@@ -34,8 +23,7 @@ const HomePageManage = () => {
   return (
     <div>
       <Banner />
-      <FeaturesSection allMedicineInfo={allFeaturesMedicines} />
-
+      <FeaturesSection />
       <CategorySection />
       <WhyChooseUs />
       <LicensedBadgeSection />
