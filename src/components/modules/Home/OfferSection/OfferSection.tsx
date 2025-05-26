@@ -1,7 +1,14 @@
-import { BadgePercent, Gift, Truck } from "lucide-react";
+"use client";
+import { BadgePercent, Gift, Truck, TicketPercent } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function OfferSection() {
+  const handleCopyCoupon = () => {
+    navigator.clipboard.writeText("SAVE20");
+    toast.success("Coupon code copied: SAVE20");
+  };
+
   return (
     <section className="w-full bg-gradient-to-br from-blue-100 to-white py-12 px-4 md:px-10 mt-12 md:mt-16">
       <div className="max-w-6xl mx-auto text-center">
@@ -29,7 +36,7 @@ export default function OfferSection() {
               purchase—automatically applied at checkout.
             </p>
             <Button variant="link" className="px-0 text-primary" asChild>
-              <a href="/signup">Sign Up & Save</a>
+              <a href="/register">Sign Up & Save</a>
             </Button>
           </div>
 
@@ -46,24 +53,25 @@ export default function OfferSection() {
               products. Offers refresh every 24 hours!
             </p>
             <Button variant="link" className="px-0 text-primary" asChild>
-              <a href="/offers">View Deals</a>
+              <a href="/shop">View Deals</a>
             </Button>
           </div>
 
-          {/* Free Delivery */}
+          {/* Coupon Code Offer */}
           <div className="p-6 bg-white rounded-2xl shadow-sm border text-left hover:shadow-md transition-all">
             <div className="flex items-center gap-3 mb-4">
-              <Truck className="text-primary size-8" />
+              <TicketPercent className="text-primary size-8" />
               <h3 className="text-xl font-semibold">
-                Free Delivery Over ৳1000
+                Extra ৳100 Off with Coupon
               </h3>
             </div>
             <p className="text-gray-600 mb-4">
-              Enjoy free, safe, and fast delivery on all orders above ৳1000. Get
-              your health essentials delivered to your doorstep—no extra cost.
+              Use coupon code{" "}
+              <span className="font-semibold text-black">EDULADHA25</span> at
+              checkout to get ৳100 off on orders above ৳800.
             </p>
-            <Button variant="link" className="px-0 text-primary" asChild>
-              <a href="/shop">Start Shopping</a>
+            <Button variant="outline" onClick={handleCopyCoupon}>
+              Copy Code
             </Button>
           </div>
         </div>
