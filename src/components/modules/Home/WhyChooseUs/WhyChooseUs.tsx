@@ -29,28 +29,26 @@ const features = [
 export default function WhyChooseUs() {
   return (
     <MyContainer>
-      <div className="max-w-6xl mx-auto text-center space-y-10">
-        <SectionTitle
-          sectionSubTitle="We are committed to delivering trusted healthcare to your doorstep."
-          sectionTitle=" Why Choose Us?"
-        />
+      <SectionTitle
+        sectionSubTitle="We are committed to delivering trusted healthcare to your doorstep."
+        sectionTitle=" Why Choose Us?"
+      />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="flex items-start gap-4 p-4 bg-white shadow-sm rounded-xl border border-gray-200"
-            >
-              <CheckCircle className="text-green-600 mt-1" size={24} />
-              <div>
-                <h4 className="text-lg font-semibold text-gray-800">
-                  {feature.title}
-                </h4>
-                <p className="text-gray-600 text-sm">{feature.description}</p>
-              </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+        {features.map((feature, index) => (
+          <div
+            key={index}
+            className="flex items-start gap-4 p-4 bg-white shadow-sm rounded-xl border border-gray-200"
+          >
+            <CheckCircle className="text-green-600 mt-1" size={24} />
+            <div>
+              <h4 className="text-lg font-semibold text-gray-800">
+                {feature.title}
+              </h4>
+              <p className="text-gray-600 text-sm">{feature.description}</p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </MyContainer>
   );

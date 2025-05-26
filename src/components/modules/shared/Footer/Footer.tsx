@@ -1,11 +1,12 @@
 // components/Footer.tsx
 
 import Link from "next/link";
+import MyContainer from "../MyContainer/MyContainer";
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300 py-10 mt-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <MyContainer>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {/* Logo + Description */}
           <div>
@@ -117,7 +118,10 @@ export default function Footer() {
         <div className="mt-8 border-t border-gray-700 pt-4 text-center text-sm text-gray-500">
           &copy; {new Date().getFullYear()} MediMart. All rights reserved.
         </div>
-      </div>
+      </MyContainer>
+      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       
+      </div> */}
     </footer>
   );
 }
