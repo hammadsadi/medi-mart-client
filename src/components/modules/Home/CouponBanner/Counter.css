@@ -1,0 +1,17 @@
+.counter-digit {
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+
+.counter-number {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  font-weight: 700;
+  color: inherit;
+}
