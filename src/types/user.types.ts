@@ -20,7 +20,6 @@ export type TLoggedInUser = {
   address: string;
   city: string;
   status: "active" | "deactivate";
+  createdAt: string;
+  membership?: "Basic" | "Premium" | "Enterprise";
 };
-
-
-

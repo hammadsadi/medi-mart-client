@@ -2,12 +2,13 @@ import React from "react";
 import Image from "next/image";
 import ProfileUpdateModal from "./ProfileUpdateModal";
 import { TLoggedInUser } from "@/types/user.types";
+import { format, formatDistanceToNow } from "date-fns";
 
 const ManageProfile = ({ userInfo }: { userInfo: TLoggedInUser }) => {
   return (
-    <div className="max-w-3xl mx-auto mt-16 rounded-2xl shadow-lg bg-white">
+    <div className="max-w-4xl mx-auto mt-16 rounded-2xl shadow-lg bg-white overflow-hidden">
       {/* Cover */}
-      <div className="h-36 w-full overflow-hidden rounded-t-2xl">
+      <div className="h-40 w-full overflow-hidden">
         <Image
           src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800"
           alt="Cover"
@@ -35,7 +36,7 @@ const ManageProfile = ({ userInfo }: { userInfo: TLoggedInUser }) => {
 
       {/* Name & Role */}
       <div className="text-center mt-4 px-4">
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-2xl font-semibold text-gray-900">
           {userInfo?.name}
         </h2>
         <p className="text-sm text-muted-foreground capitalize">
@@ -49,18 +50,32 @@ const ManageProfile = ({ userInfo }: { userInfo: TLoggedInUser }) => {
       </div>
 
       {/* Stats */}
-      <div className="mt-6 flex justify-around text-center border-t border-b py-4 text-sm text-gray-700">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 text-center border-t border-b py-4 text-sm text-gray-700">
         <div>
-          <div className="text-primary font-semibold text-lg">2k</div>
-          <div className="text-muted-foreground">Stars</div>
+          <div className="text-primary font-semibold text-lg">
+            {userInfo?.createdAt
+              ? format(new Date(userInfo.createdAt), "MMMM d, yyyy")
+              : "N/A"}
+          </div>
+          <div className="text-muted-foreground">Member Since</div>
         </div>
+
         <div>
-          <div className="text-primary font-semibold text-lg">10k</div>
-          <div className="text-muted-foreground">Followers</div>
+          <div className="text-primary font-semibold text-lg">
+            {userInfo?.createdAt
+              ? formatDistanceToNow(new Date(userInfo.createdAt), {
+                  addSuffix: true,
+                })
+              : "N/A"}
+          </div>
+          <div className="text-muted-foreground">Joined</div>
         </div>
+
         <div>
-          <div className="text-primary font-semibold text-lg">15</div>
-          <div className="text-muted-foreground">Projects</div>
+          <div className="text-primary font-semibold text-lg">
+            {userInfo?.membership || "Basic"}
+          </div>
+          <div className="text-muted-foreground">Membership Tier</div>
         </div>
       </div>
 

@@ -83,6 +83,12 @@ const data = {
         },
       ],
     },
+    {
+      title: "My Profile",
+      url: "/profile",
+      icon: User,
+      isActive: true,
+    },
   ],
   Customer: [
     {
@@ -99,7 +105,7 @@ const data = {
     },
 
     {
-      title: "Profile",
+      title: "My Profile",
       url: "/profile",
       icon: User,
       isActive: true,
