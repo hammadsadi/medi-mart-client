@@ -1,12 +1,12 @@
-import ShopManage from '@/components/modules/shop';
-import React from 'react'
+import ShopManage from "@/components/modules/shop";
+import React from "react";
 type TSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-const ShopPage = ({ searchParams }: { searchParams: TSearchParams }) => {
+const ShopPage = () => {
   return (
     <div>
-      <ShopManage searchParams={searchParams} />
+      <ShopManage />
     </div>
   );
 };
 
-export default ShopPage
+export default ShopPage;

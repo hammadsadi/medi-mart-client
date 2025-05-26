@@ -2,9 +2,7 @@ import React from "react";
 import CommonBanner from "../shared/CommonBanner/CommonBanner";
 import MyContainer from "../shared/MyContainer/MyContainer";
 import SectionTitle from "../shared/SectionTitle/SectionTitle";
-import { getAllMedicines } from "@/services/Medicine";
 import AllMedicines from "./allMedicines";
-type TSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 const ShopManage = async () => {
   return (

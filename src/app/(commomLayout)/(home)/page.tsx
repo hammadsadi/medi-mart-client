@@ -1,9 +1,8 @@
 import HomePageManage from "@/components/modules/Home";
-type TSearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-const HomePage = async ({ searchParams }: { searchParams: TSearchParams }) => {
+const HomePage = async () => {
   return (
     <div>
-      <HomePageManage searchParams={searchParams} />
+      <HomePageManage />
     </div>
   );
 };

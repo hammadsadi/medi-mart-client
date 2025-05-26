@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
 import { CalendarIcon, LoaderCircle, Plus, Trash } from "lucide-react";
@@ -17,22 +16,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-
-import {
-  FieldValues,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { format, formatISO } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { createCoupon, deleteCoupon } from "@/services/CouponServices";
 const ManageCoupon = ({ coupons }: { coupons: TCoupon[] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-   // Delete Coupon
+  // Delete Coupon
   const handleDelete = async (productId: string) => {
     const toastDeleteId = toast.loading("deleteing");
     const res = await deleteCoupon(productId);
@@ -43,7 +41,7 @@ const ManageCoupon = ({ coupons }: { coupons: TCoupon[] }) => {
     }
   };
 
-//    Columm
+  //    Columm
   const columns: ColumnDef<TCoupon>[] = [
     {
       accessorKey: "code",
@@ -119,10 +117,9 @@ const ManageCoupon = ({ coupons }: { coupons: TCoupon[] }) => {
 
   // Handle Submit Product Add Form
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data)
+    console.log(data);
     const createToastId = toast.loading("createingToast");
     try {
-     
       // Modefied Data
       const modifiedData = {
         ...data,
@@ -137,7 +134,7 @@ const ManageCoupon = ({ coupons }: { coupons: TCoupon[] }) => {
       const res = await createCoupon(modifiedData);
       if (res?.success) {
         toast.success(res?.message, { id: createToastId });
-        form.reset()
+        form.reset();
       } else {
         toast.error(res?.error, { id: createToastId });
       }

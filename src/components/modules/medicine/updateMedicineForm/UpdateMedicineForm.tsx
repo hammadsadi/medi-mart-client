@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Button } from "@/components/ui/button";
 import {
@@ -51,7 +49,7 @@ const UpdateMedicineForm = ({
       description: singleMedicine?.description || "",
       price: singleMedicine?.price || "",
       stock: singleMedicine?.stock || "",
-      prescriptionRequired: singleMedicine?.prescriptionRequired ? 'yes' : 'no',
+      prescriptionRequired: singleMedicine?.prescriptionRequired ? "yes" : "no",
       manufacturer: singleMedicine?.manufacturer || "",
       category: singleMedicine?.category || "",
       symptoms: singleMedicine?.symptoms?.map((symptom) => ({
@@ -64,7 +62,7 @@ const UpdateMedicineForm = ({
   const {
     formState: { isSubmitting },
   } = form;
-const router = useRouter()
+  const router = useRouter();
   // DynamicKey symptoms Fields Add
   const { append: keySymptomsAppend, fields: keySymptomsField } = useFieldArray(
     {
@@ -80,11 +78,11 @@ const router = useRouter()
   // Handle Submit Product Add Form
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-        let imageLink = singleMedicine?.imageUrl;
-        if (data?.imageUrl){
-            const resimagUrl = await uploadImage(data?.imageUrl);
-            imageLink = resimagUrl;
-        }
+      let imageLink = singleMedicine?.imageUrl;
+      if (data?.imageUrl) {
+        const resimagUrl = await uploadImage(data?.imageUrl);
+        imageLink = resimagUrl;
+      }
       // Modify Key Features
       const symptoms = data?.symptoms?.map(
         (symptomsData: { value: string }) => symptomsData.value

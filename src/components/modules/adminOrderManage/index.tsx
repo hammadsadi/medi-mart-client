@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-'use client'
-import { MMTable } from '@/components/ui/core/MMTable';
-import { TOrderInfo } from '@/types/order.types';
-import { ColumnDef } from '@tanstack/react-table';
-import { Eye, Trash } from 'lucide-react';
-import React from 'react'
+"use client";
+import { MMTable } from "@/components/ui/core/MMTable";
+import { TOrderInfo } from "@/types/order.types";
+import { ColumnDef } from "@tanstack/react-table";
+import { Eye, Trash } from "lucide-react";
+import React from "react";
 import {
   Select,
   SelectContent,
@@ -12,12 +11,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
-import { deleteSingleOrderForAdmin, updateSingleOrderCheckingStatusForAdmin, updateSingleOrderDeliveryStatusForAdmin } from '@/services/OrderServices';
-import { toast } from 'sonner';
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import {
+  deleteSingleOrderForAdmin,
+  updateSingleOrderCheckingStatusForAdmin,
+  updateSingleOrderDeliveryStatusForAdmin,
+} from "@/services/OrderServices";
+import { toast } from "sonner";
 
-const AdminOrderManage = ({ allOrders }: { allOrders:TOrderInfo[] }) => {
+const AdminOrderManage = ({ allOrders }: { allOrders: TOrderInfo[] }) => {
   const router = useRouter();
   const handleReview = async (id: string, value: string) => {
     const updatingStatusId = toast.loading("Updating Status...");
@@ -48,14 +51,10 @@ const AdminOrderManage = ({ allOrders }: { allOrders:TOrderInfo[] }) => {
     }
   };
 
-  // Handle Delete Single Order 
-  const handledeDeleteOrder = async (
-    orderId: string,
-  ) => {
+  // Handle Delete Single Order
+  const handledeDeleteOrder = async (orderId: string) => {
     const updatingStatusId = toast.loading("Deleting Order...");
-    const res = await deleteSingleOrderForAdmin(
-      orderId,
-    );
+    const res = await deleteSingleOrderForAdmin(orderId);
     if (res.success) {
       toast.success(res?.message, { id: updatingStatusId });
     } else {
@@ -179,4 +178,4 @@ const AdminOrderManage = ({ allOrders }: { allOrders:TOrderInfo[] }) => {
   );
 };
 
-export default AdminOrderManage
+export default AdminOrderManage;

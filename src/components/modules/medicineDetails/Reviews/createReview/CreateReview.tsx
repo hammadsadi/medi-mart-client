@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-'use client'
+"use client";
 import { MyModal } from "@/components/modules/shared/MyModal/MyModal";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,40 +13,40 @@ const CreateReview = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoverItem, setHoverItem] = useState(0);
-  const [userReview, setUserReview] = useState('')
-  const {user} = useUser()
-const router = useRouter();
-const pathname = usePathname(); 
-const {id} = useParams()
-  
+  const [userReview, setUserReview] = useState("");
+  const { user } = useUser();
+  const router = useRouter();
+  const pathname = usePathname();
+  const { id } = useParams();
+
   // Handle Submit Review Comment
-  const handleSubmitReviewComment = async () =>{
-    const submitReviewId = toast.loading('Submiting Review...')
+  const handleSubmitReviewComment = async () => {
+    const submitReviewId = toast.loading("Submiting Review...");
     const modefiedData = {
-      userId:user?.userId as string,
-        review: userReview,
-        ratings: Number(rating),
-        medicineId: id as string
+      userId: user?.userId as string,
+      review: userReview,
+      ratings: Number(rating),
+      medicineId: id as string,
+    };
+    try {
+      const res = await createReviews(modefiedData);
+      if (res?.success) {
+        toast.success(res?.message, { id: submitReviewId });
+        setIsOpen(false);
+      } else {
+        toast.error(res?.message, { id: submitReviewId });
+      }
+    } catch (error: any) {
+      toast.error(error?.message, { id: submitReviewId });
     }
-   try {
-    const res = await createReviews(modefiedData)
-    if(res?.success){
-      toast.success(res?.message, {id:submitReviewId})
-      setIsOpen(false)
-    }else{
-      toast.error(res?.message, { id: submitReviewId });
-    }
-   } catch (error:any) {
-    toast.error(error?.message, { id: submitReviewId });
-   }
   };
 
   // Hnadle User Redirect for Review
-  const handleUserRedirect = () =>{
-    if(!user){
-        router.push(`/login?redirectPath=${pathname}`);
+  const handleUserRedirect = () => {
+    if (!user) {
+      router.push(`/login?redirectPath=${pathname}`);
     }
-  }
+  };
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Write Review</Button>
@@ -116,7 +115,7 @@ const {id} = useParams()
           </div>
         ) : (
           <div className="text-center py-3 space-y-2">
-            <Frown  className="mx-auto text-red-600" size={40} />
+            <Frown className="mx-auto text-red-600" size={40} />
             <p className="text-lg">Please log in to submit your review!</p>
 
             <Button onClick={handleUserRedirect}>Login</Button>
@@ -125,6 +124,6 @@ const {id} = useParams()
       </MyModal>
     </>
   );
-}
+};
 
-export default CreateReview
+export default CreateReview;

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,7 +38,7 @@ import uploadImage from "@/utils/uploadImageToCloudinary";
 import { createMedicine } from "@/services/Medicine";
 import { useRouter } from "next/navigation";
 const CreateMedicinePage = () => {
- const router = useRouter()
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       name: "",
@@ -52,7 +50,7 @@ const CreateMedicinePage = () => {
       category: "",
       symptoms: [{ value: "" }],
       expiryDate: new Date(),
-      imageUrl:null,
+      imageUrl: null,
     },
   });
   const {
@@ -75,37 +73,34 @@ const CreateMedicinePage = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const createToastId = toast.loading("createing Medicine...");
     try {
-        const resimagUrl = await uploadImage(data?.imageUrl);
-        // Modify Key Features
-        const symptoms = data?.symptoms?.map(
-          (symptomsData: { value: string }) => symptomsData.value
-        );
+      const resimagUrl = await uploadImage(data?.imageUrl);
+      // Modify Key Features
+      const symptoms = data?.symptoms?.map(
+        (symptomsData: { value: string }) => symptomsData.value
+      );
 
-        // Modefied Data
-        const modifiedData = {
-          ...data,
-          price: parseFloat(data?.price),
-          imageUrl: resimagUrl,
-          stock: parseInt(data?.stock),
-          symptoms: symptoms,
-          prescriptionRequired:
-            data?.prescriptionRequired === "yes" ? true : false,
-          expiryDate: formatISO(data?.expiryDate),
-        };
+      // Modefied Data
+      const modifiedData = {
+        ...data,
+        price: parseFloat(data?.price),
+        imageUrl: resimagUrl,
+        stock: parseInt(data?.stock),
+        symptoms: symptoms,
+        prescriptionRequired:
+          data?.prescriptionRequired === "yes" ? true : false,
+        expiryDate: formatISO(data?.expiryDate),
+      };
 
-        const res = await createMedicine(modifiedData)
-        if(res?.success){
-          toast.success(res?.message, { id: createToastId });
-          router.push("/admin/medicines");
-
-        }else{
-          toast.error(res?.error, { id: createToastId });
-        }
-    } catch (error:any) {
-      toast.error(error?.message)
+      const res = await createMedicine(modifiedData);
+      if (res?.success) {
+        toast.success(res?.message, { id: createToastId });
+        router.push("/admin/medicines");
+      } else {
+        toast.error(res?.error, { id: createToastId });
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
     }
-  
-
   };
   return (
     <div>
@@ -311,7 +306,6 @@ const CreateMedicinePage = () => {
                           type="file"
                           {...field}
                           onChange={(e) => onChange(e.target.files?.[0])}
-                          
                         />
                       </FormControl>
                     </FormItem>

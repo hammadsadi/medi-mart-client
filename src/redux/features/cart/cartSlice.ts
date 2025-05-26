@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RootState } from "@/redux/store";
 import { getDiscountInfo } from "@/services/CouponServices";
 import { TDiscountData } from "@/types/coupons.types";
