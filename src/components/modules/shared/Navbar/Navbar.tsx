@@ -154,14 +154,14 @@ export default function Navbar({ medicineCat }: { medicineCat: string[] }) {
 
               <li>
                 <Link
-                  href="/doctors"
+                  href="/health-support"
                   className={`transition-all hover:text-primary ${
-                    isActive("/doctors", true)
+                    isActive("/health-support", true)
                       ? "text-primary font-semibold"
                       : ""
                   }`}
                 >
-                  Doctors
+                  Health Care
                 </Link>
               </li>
               <li>
