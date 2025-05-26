@@ -4,7 +4,7 @@ import React from "react";
 
 const ReviewItem = ({ reviewItem }: { reviewItem: TReview }) => {
   return (
-    <blockquote className=" rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8">
+    <blockquote className=" rounded-lg bg-green-100 p-6 shadow-xs sm:p-8">
       <div className="flex items-center gap-4">
         <Image
           width={400}

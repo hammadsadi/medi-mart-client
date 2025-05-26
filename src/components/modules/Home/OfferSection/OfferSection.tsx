@@ -10,7 +10,7 @@ export default function OfferSection() {
   };
 
   return (
-    <section className="w-full bg-gradient-to-br from-blue-100 to-white py-12 px-4 md:px-10 mt-12 md:mt-16">
+    <section className="w-full bg-gradient-to-br from-green-100 to-white py-12 px-4 md:px-10 mt-12 md:mt-16">
       <div className="max-w-6xl mx-auto text-center">
         <div className="mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">

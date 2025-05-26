@@ -40,7 +40,7 @@ export function Counter({
             textAlign: "center",
             lineHeight: `${height}px`,
             borderRadius: 4,
-            backgroundColor: "rgba(255,255,255,0.1)",
+            backgroundColor: "#16a34a",
             boxShadow: "0 0 6px rgba(0,0,0,0.3)",
             ...digitStyle,
           }}
