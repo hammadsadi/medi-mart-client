@@ -3,17 +3,15 @@ import React from "react";
 import Banner from "./Banner/Banner";
 import FeaturesSection from "./Features";
 import CustomerReviews from "./CustomerReviews";
-import { getAllFeaturesMedicines, getAllMedicines } from "@/services/Medicine";
+import { getAllFeaturesMedicines } from "@/services/Medicine";
 import { getAllReviews } from "@/services/ReviewServices";
 import OfferSection from "./OfferSection/OfferSection";
 import BlogSection from "./BlogSection/BlogSection";
 import CategorySection from "./CategorySection/CategorySection";
 import WhyChooseUs from "./WhyChooseUs/WhyChooseUs";
+import LicensedBadgeSection from "./LicensedBadgeSection/LicensedBadgeSection";
 
 const HomePageManage = async ({ searchParams }: { searchParams: any }) => {
-  const { query } = await searchParams;
-  const { searchTerm } = await searchParams;
-
   const { data: allFeaturesMedicines } = await getAllFeaturesMedicines();
   const { data: allReviews } = await getAllReviews();
   return (
@@ -22,6 +20,7 @@ const HomePageManage = async ({ searchParams }: { searchParams: any }) => {
       <FeaturesSection allMedicineInfo={allFeaturesMedicines?.data} />
       <CategorySection />
       <WhyChooseUs />
+      <LicensedBadgeSection />
       <OfferSection />
       <CustomerReviews allReviews={allReviews} />
       <BlogSection />
