@@ -234,7 +234,7 @@ export default function Navbar({ medicineCat }: { medicineCat: string[] }) {
                 </DropdownMenuItem>
                 {user && (
                   <DropdownMenuItem>
-                    <Link href="/orders">Order History</Link>
+                    <Link href="/profile">Dashboard</Link>
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuItem>
