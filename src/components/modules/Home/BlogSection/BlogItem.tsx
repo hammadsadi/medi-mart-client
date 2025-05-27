@@ -30,7 +30,7 @@ const BlogItem = ({ blog }: { blog: TBlogPost }) => {
           {blog.excerpt}
         </p>
         <Button variant="link" className="px-0 text-primary" asChild>
-          <Link href={`/blogs/${blog.slug}`}>Read More</Link>
+          <Link href={`/health-tips/${blog.slug}`}>Read More</Link>
         </Button>
       </div>
     </div>
