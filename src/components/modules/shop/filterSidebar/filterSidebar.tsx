@@ -7,8 +7,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { X, Filter } from "lucide-react";
 import { getAllMedicineCategories } from "@/services/Medicine";
-import { set } from "date-fns";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input"; // এখানে date-fns থেকে 'set' এর import লাইনটি নেই
 
 export default function FilterSidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +39,7 @@ export default function FilterSidebar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  //  Get All Category
+  // Get All Category
   useEffect(() => {
     const getCat = async () => {
       const { data } = await getAllMedicineCategories();
@@ -48,10 +47,10 @@ export default function FilterSidebar() {
     };
     getCat();
   }, []);
+
   return (
     <>
-      {/*  Filter Button For Mobile Device */}
-
+      {/* Filter Button For Mobile Device */}
       {showFilterButton && (
         <Button
           onClick={() => setIsOpen(true)}
@@ -63,9 +62,9 @@ export default function FilterSidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-fit bg-slate-50  p-6 w-72 transition-transform duration-300 z-50 
-        ${isOpen ? "translate-x-0" : "-translate-x-full"} 
-        lg:translate-x-0 lg:relative lg:w-60 lg:h-fit lg:block`}
+        className={`fixed top-0 left-0 h-fit bg-slate-50 p-6 w-72 transition-transform duration-300 z-20 overflow-y-auto max-h-screen
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        lg:translate-x-0 lg:relative lg:w-60 lg:h-fit lg:block lg:max-h-full`}
       >
         {/* Close Button (Mobile) */}
         <button
